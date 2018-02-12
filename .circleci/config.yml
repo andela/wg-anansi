@@ -33,7 +33,7 @@ jobs:
           command: |
             python3 -m venv venv-django
             . venv-django/bin/activate
-            pip install -r requirements_devel.txt
+            pip install -r requirements.txt
             pip install wger
             # npm install
             # Setup application
