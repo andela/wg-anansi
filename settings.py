@@ -16,11 +16,11 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'test_wger',
-        'USER': 'postgres',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': './database.sqlite',
+        'USER': '',
         'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'HOST': '',
         'PORT': '',
     }
 }
@@ -37,6 +37,7 @@ SECRET_KEY = '4g1d=%1)!)m!u^$6-3!p^r7-5vu@*_g=fsf-#s$@t+d4ystnbg'
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 NOCAPTCHA = True
+RECAPTURE_TESTING = True
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for uploaded files and images (exercise images, etc.) to be
@@ -45,7 +46,7 @@ SITE_URL = 'http://localhost:8000'
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = '/Users/angela/.local/share/wger/media'
+MEDIA_ROOT = '/Users/lukyamuzi/.local/share/wger/media'
 MEDIA_URL = '/media/'
 
 # Allow all hosts to access the application. Change if used in production.
