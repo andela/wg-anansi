@@ -205,7 +205,6 @@ USE_TZ = True
 USE_I18N = True
 USE_L10N = True
 
-SITE_ROOT = os.environ.get("SITE_ROOT") or "http://localhost:8000"
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -313,7 +312,7 @@ THUMBNAIL_ALIASES = {
 #
 # Django compressor
 #
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # The default is not DEBUG, override if needed
