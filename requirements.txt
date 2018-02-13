@@ -48,3 +48,5 @@ sphinxcontrib-websupport==1.0.1
 sqlparse==0.2.4
 urllib3==1.22
 webencodings==0.5.1
+psycopg2==2.7.4
+psycopg2-binary==2.7.4
