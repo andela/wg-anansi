@@ -16,7 +16,6 @@
 
 import re
 import sys
-import dj_database_url
 
 '''
 This file contains the global settings that don't usually need to be changed.
@@ -26,8 +25,7 @@ For a full list of options, visit:
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-#BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 #
@@ -374,14 +372,3 @@ WGER_SETTINGS = {
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'TWITTER': False
 }
-
-if os.environ.get("HEROKU_DEPLOYMENT") == '1':
-     DATABASES = {
-         'default': dj_database_url.config()
-     }
-
-
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'wger/core/static'),
-)
