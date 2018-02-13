@@ -26,7 +26,8 @@ For a full list of options, visit:
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+#BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 #
@@ -312,8 +313,9 @@ THUMBNAIL_ALIASES = {
 #
 # Django compressor
 #
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
 
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
@@ -377,3 +379,9 @@ if os.environ.get("HEROKU_DEPLOYMENT") == '1':
      DATABASES = {
          'default': dj_database_url.config()
      }
+
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'wger/core/static'),
+)
