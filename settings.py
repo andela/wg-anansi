@@ -15,22 +15,23 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'test_wger',
-        'USER': 'postgres',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': './database.sqlite',
+        'USER': '',
         'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'HOST': '',
         'PORT': '',
     }
 }
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'skd2h)&^hsruj4)6ogds7!e-&gywigtgy888@&3w)$l+!(ake+'
+SECRET_KEY = '%3_p)ac(-@14-nh(e1@b$@pv)$0s4e+te%4220_u@s+5bcq=60'
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 NOCAPTCHA = True
+RECAPTURE_TESTING = True
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for uploaded files and images (exercise images, etc.) to be
@@ -39,7 +40,7 @@ SITE_URL = 'http://localhost:8000'
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = '/Users/angela/.local/share/wger/media'
+MEDIA_ROOT = '/Users/lukyamuzi/.local/share/wger/media'
 MEDIA_URL = '/media/'
 
 # Allow all hosts to access the application. Change if used in production.

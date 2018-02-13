@@ -105,7 +105,7 @@ BOWER_INSTALLED_APPS = (
 
 
 MIDDLEWARE_CLASSES = (
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -204,7 +204,7 @@ USE_TZ = True
 USE_I18N = True
 USE_L10N = True
 
-SITE_ROOT = os.environ.get("SITE_ROOT") or "http://localhost:8000"
+# SITE_ROOT = os.environ.get("SITE_ROOT") or "http://localhost:8000"
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.

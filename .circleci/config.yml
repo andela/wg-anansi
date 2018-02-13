@@ -33,7 +33,7 @@ jobs:
           command: |
             python3 -m venv venv-django
             . venv-django/bin/activate
-            pip install -r requirements_devel.txt
+            pip install -r requirements.txt
             pip install wger
             # npm install
             # Setup application
@@ -54,7 +54,7 @@ jobs:
           command: |
             python3 -m venv venv-django
             . venv-django/bin/activate
-            pip install -r requirements_devel.txt
+            pip install -r requirements .txt
             pip install wger
             wger create_settings --database-path /home/circleci/wg-anansi/wger/database.sqlite
             wger create_settings --settings-path /home/circleci/wg-anansi/wger/settings.py
