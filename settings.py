@@ -24,6 +24,11 @@ DATABASES = {
     }
 }
 
+if os.environ.get("HEROKU_DEPLOYMENT") == '1':
+     DATABASES = {
+        'default': dj_database_url.config()
+     }
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '4g1d=%1)!)m!u^$6-3!p^r7-5vu@*_g=fsf-#s$@t+d4ystnbg'
 
@@ -60,11 +65,6 @@ WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-if os.environ.get("HEROKU_DEPLOYMENT") == '1':
-     DATABASES = {
-        'default': dj_database_url.config()
-     }
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
