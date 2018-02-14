@@ -19,15 +19,16 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
-    working_directory: ~/wg-anansi/wger
+    working_directory: ~/wg-knights/wger
     steps:
       - checkout
       # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+      
+      # - restore_cache:
+      #     keys:
+      #     - v1-dependencies-{{ checksum "requirements.txt" }}
+      #     # fallback to using the latest cache if no exact match is found
+          # - v1-dependencies-
       - run:
           name: install dependencies
           command: |
@@ -37,16 +38,12 @@ jobs:
             pip install wger
             # npm install
             # Setup application
-            wger create_settings --database-path /home/circleci/wg-anansi/wger/database.sqlite
-            wger create_settings --settings-path /home/circleci/wg-anansi/wger/settings.py
+            wger create-settings --database-path /home/circleci/wg-anansi/wger/database.sqlite
+            wger create-settings --settings-path /home/circleci/wg-anansi/wger/settings.py
             python manage.py makemigrations
             python manage.py migrate
             
             
-      - save_cache:
-          paths:
-            - ./venv-django
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
         
       # run tests!
       - run:
@@ -54,12 +51,13 @@ jobs:
           command: |
             python3 -m venv venv-django
             . venv-django/bin/activate
-            pip install -r requirements .txt
+            pip install -r requirements.txt
             pip install wger
-            wger create_settings --database-path /home/circleci/wg-anansi/wger/database.sqlite
-            wger create_settings --settings-path /home/circleci/wg-anansi/wger/settings.py
+            wger create-settings --database-path /home/circleci/wg-anansi/wger/database.sqlite
+            wger create-settings --settings-path /home/circleci/wg-anansi/wger/settings.py
             
             python manage.py test
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
