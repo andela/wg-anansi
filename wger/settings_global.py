@@ -105,14 +105,6 @@ BOWER_INSTALLED_APPS = (
 
 
 MIDDLEWARE_CLASSES = (
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
->>>>>>> Fix recaptcha version and failing tests
-=======
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
->>>>>>> dca5ef7dc01d94baad3853b579b3a175191f50a6
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
