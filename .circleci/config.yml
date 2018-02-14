@@ -38,8 +38,8 @@ jobs:
             pip install wger
             # npm install
             # Setup application
-            wger create-settings --database-path /home/circleci/wg-anansi/wger/database.sqlite
-            wger create-settings --settings-path /home/circleci/wg-anansi/wger/settings.py
+            wger create_settings --database-path /home/circleci/wg-anansi/wger/database.sqlite
+            wger create_settings --settings-path /home/circleci/wg-anansi/wger/settings.py
             python manage.py makemigrations
             python manage.py migrate
             
