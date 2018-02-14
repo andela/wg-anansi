@@ -106,9 +106,13 @@ BOWER_INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     # 'whitenoise.middleware.WhiteNoiseMiddleware',
 >>>>>>> Fix recaptcha version and failing tests
+=======
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+>>>>>>> dca5ef7dc01d94baad3853b579b3a175191f50a6
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -207,10 +211,6 @@ USE_TZ = True
 USE_I18N = True
 USE_L10N = True
 
-<<<<<<< HEAD
-=======
-# SITE_ROOT = os.environ.get("SITE_ROOT") or "http://localhost:8000"
->>>>>>> Fix recaptcha version and failing tests
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
