@@ -15,10 +15,25 @@
 
 {% block content %}
 {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
-    {% include 'gym/partial_user_list.html' %}
+<h4>{% trans "Users" %}</h4>
+<div id="tabs">
+  <ul>
+      <li><a href="#all_users">All Users</a></li>
+      <li><a href="#inactive_users">Inactive Users</a></li>
+      <li><a href="#active_users">Active Users</a></li>
+  </ul>
+
+    <div id="all_users">{% include 'gym/partial_user_list.html' %}</div>
+
+    <div id="inactive_users">{% include 'gym/inactive_user_list.html' %}</div>
+
+    <div id="active_users">{% include 'gym/active_user_list.html' %}</div>
+</div>
+
 {% endif %}
 
-
+<br />
+<div id="admins_and_trainers">
 <h4>{% trans "Administrators and trainers" %}</h4>
 <table class="table table-hover">
 <thead>
@@ -71,6 +86,7 @@
 {% endfor %}
 </tbody>
 </table>
+</div>
 {% endblock %}
 
 

@@ -30,4 +30,4 @@ def features(request):
 
     context = {'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
                'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS']}
-    return render(request, 'features.html', context)
+    return render(request, 'new_features.html', context)
