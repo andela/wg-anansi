@@ -1,0 +1,260 @@
+{% extends "base_new_features.html" %} {% load i18n staticfiles wger_extras %} {% block content%}
+
+
+<div class="wg-head">
+    <header>
+        <div class="logo">
+            <a href="#">WGER</a>
+        </div>
+        <div class="navigation">
+            <a href="{% url 'core:user:login' %}" class="login">login</a>
+            <a href="{% url 'core:user:registration' %}">register</a>
+            <a href="#feat">features</a>
+            <a href="#how">how it works</a>
+            <a href="#wger">wger</a>
+        </div>
+    </header>
+</div>
+<div class="clearfix"></div>
+<div class="wg-intro">
+
+    <div class="intro">
+        <p><span>"</span> MOTIVATION IS WHAT GETS YOU STARTED,
+            <span>HABIT</span> IS WHAT KEEPS YOU GOING <span>"</span></p>
+        <h3>WELCOME TO WGER</h3>
+
+        <div class="mouse"></div>
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="wg-advantages" id="wger">
+    <div class="intro">
+        <p>wger workout manager is a free, open source web application that manages your exercises, workouts and nutrition.</p>
+    </div>
+    <div class="advantages">
+        <div class="item workouts">
+            <div class="wg-color">
+                <h2>Workouts</h2>
+                <div class="under"></div>
+                <p> Create and manage flexible workout routines for any goals you have. Select exactly which exercises you'll do and how many repetitions, time or distance you want to do them. You can also combine different workouts into a schedule.</p>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="item nutrition">
+            <div class="wg-color">
+                <h2>nutrition</h2>
+                <div class="under"></div>
+                <p> Create your personal diet plan by creating as many meals with as many different ingredients as you need. The application will calculate the nutritional values about the whole plan as well as the indivual meals.</p>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="item diary">
+            <div class="wg-color">
+                <h2>Diary</h2>
+                <div class="under"></div>
+                <p> Enter the weights and repetitions you did for each exercise to generate diagrams that let you see at a glance how well you are doing. The raw numbers are of course still accessible. You can also enter notes and a general impression.</p>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+
+<div class="wg-how" id="how">
+    <div class="image">
+        <div class="wg-color"></div>
+
+    </div>
+    <div class="how">
+        <h2>How it works</h2>
+        <div class="under"></div>
+        <div class="list">
+            <h3>Register</h3>
+            <p>First, you'll need to register to use most of the features on our plaform. You can create and manage flexible workout routines for any goals you have. </p>
+        </div>
+        <div class="list">
+            <h3>Create workout plan</h3>
+            <p>Create and manage flexible workout routines for any goals you have. Select exactly which exercises you'll do and how many repetitions</p>
+        </div>
+
+        <div class="list">
+            <h3>Create Nutrition Plan</h3>
+            <p>Create your personal diet plan by creating as many meals with as many different ingredients as you need. </p>
+        </div>
+
+        <div class="list">
+            <h3>Repeat</h3>
+            <p>wger makes helps you make your workout plan a habit. Go ye and awesome with wger </p>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+<div class="wg-features" id="feat">
+    <div class="intro">
+        <h2>Our Features</h2>
+        <div class="under"></div>
+    </div>
+    <div class="features">
+        <div class="feature weight">
+            <div class="wg-color">
+                <div class="icon">
+                    <img src="{% static 'images/icons/016-scale.png' %}">
+                </div>
+                <div class="title">
+                    <h2>Weight Tracking</h2>
+                    <p>Keep track of your progress with the body weight chart. This makes it easy to see if you are reaching your goals or need to adjust something.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature calendar">
+            <div class="wg-color">
+                <div class="icon">
+                    <img src="{% static 'images/icons/008-calendar.png' %}">
+                </div>
+                <div class="title">
+                    <h2>calendar</h2>
+                    <p>Get an overview of how and when you trained as well as how you personally felt you performed. Access all your individual diary entries with one click.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature exercise">
+            <div class="wg-color">
+                <div class="icon">
+                    <img src="{% static 'images/icons/001-dumbbell-2.png' %}">
+                </div>
+                <div class="title">
+                    <h2>Exercise Database</h2>
+                    <p>The exercise database contains more than hundred exercises from which you can choose when creating a workout. You can view them by category and equipment used or muscles trained.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature gym">
+            <div class="wg-color">
+                <div class="icon">
+                    <img src="{% static 'images/icons/002-stationary-bike.png' %}">
+                </div>
+                <div class="title">
+                    <h2>Gym Management</h2>
+                    <p>Use the application for your gym to manage its members, their workouts and attendance. You can manage the members' contracts, keep notes and upload any files you might need.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature rest">
+            <div class="wg-color">
+                <div class="icon">
+                    <img src="{% static 'images/icons/api.png' %}">
+                </div>
+                <div class="title">
+                    <h2>Rest API</h2>
+                    <p>wger provides a REST API with full read and write access to all data so you can integrate your own application and tools.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature free">
+            <div class="wg-color">
+                <div class="icon">
+                    <img src="{% static 'images/icons/007-timer.png' %}">
+                </div>
+                <div class="title">
+                    <h2>100% FREE</h2>
+                    <p>wger is 100% free to use. Go ye and transform.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="wg-parallax-two parallax">
+    <div class="register">
+        <a href="{% url 'core:user:registration' %}">Get Started</a>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="wg-footer">
+    <div class="upper">
+        <div class="menu">
+            <h2>About</h2>
+            <div class="under"></div>
+            <ul>
+                <li>
+                    <a href="{% url 'manager:workout:overview' %}">Try Sandbox</a>
+                </li>
+                <li>
+                    <a href="{% url 'manager:workout:overview' %}">Features</a>
+                </li>
+                <li>
+                    <a href="{% url 'software:contribute' %}">Contribute</a>
+                </li>
+                <li>
+                    <a href="{% url 'software:issues' %}">Problems</a>
+                </li>
+                <li>
+                    <a href="{% url 'software:tos' %}">Terms of Service</a>
+                </li>
+                <li>
+                    <a href="https://wger.readthedocs.io/">Documentation</a>
+                </li>
+
+                <li>
+                    <a href="https://github.com/wger-project/wger">Github</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu">
+            <h2>Workouts</h2>
+            <div class="under"></div>
+            <ul>
+                <li>
+                    <a href="{% url 'manager:workout:overview' %}">Workouts</a>
+                </li>
+                <li>
+                    <a href="#">Calendar</a>
+                </li>
+                <li>
+                    <a href="{% url 'exercise:exercise:overview' %}">Exercises</a>
+                </li>
+                <li>
+                    <a href="{% url 'exercise:muscle:overview' %}">Muscle Overview</a>
+                </li>
+                <li>
+                    <a href="{% url 'exercise:equipment:overview' %}">Equipment Overview</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu">
+            <h2>Nutrition</h2>
+            <div class="under"></div>
+            <ul>
+                <li>
+                    <a href="{% url 'nutrition:plan:overview' %}">Nutrition plans</a>
+                </li>
+                <li>
+                    <a href="{% url 'nutrition:ingredient:list' %}">Ingredient overview</a>
+                </li>
+                <li>
+                    <a href="{% url 'nutrition:bmi:view' %}">BMI Calculator</a>
+                </li>
+                <li>
+                    <a href="{% url 'nutrition:calories:view' %}">Daily Calories calculator</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="lower">
+        <p>workout with <span>love</span>, workout with <span>wger</span> &copy; All rights reserved. wger.de</p>
+    </div>
+</div>
+{% endblock %}

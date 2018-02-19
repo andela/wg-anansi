@@ -1,0 +1,567 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand|Ubuntu+Mono');
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+* html .clearfix {
+    zoom: 1;
+}
+
+
+/* IE6 */
+
+*:first-child+html .clearfix {
+    zoom: 1;
+}
+
+
+/* IE7 */
+
+a {
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+p {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.under {
+    width: 90px;
+    height: .3em;
+    border-radius: 2em;
+    background: linear-gradient(to right, #b44097, #009ee2);
+}
+
+body {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.wg-head {
+    width: 100%;
+    margin: 0 auto;
+    background: linear-gradient(to left, #b44097, #009ee2);
+}
+
+header {
+    width: 85%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 20% auto;
+}
+
+header .logo a {
+    padding: 5px;
+    color: #FFF;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 3em;
+    font-weight: 700;
+}
+
+header .navigation a {
+    padding: 20px;
+    color: #FFF;
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: .2em;
+    float: right;
+    transition: border-bottom 6s ease-in-out';
+
+}
+
+header .navigation a:hover {
+    border-bottom: 2px solid #009de2;
+}
+
+header .navigation a.login {
+    border: 1px solid #009de2;
+    padding: 10px 20px !important;
+    margin-top: 10px;
+    transition: color 2s ease-in-out;
+}
+
+header .navigation a.login:hover {
+    color: #009de2;
+}
+
+.parallax {
+    width: 100%;
+    margin: 0 auto;
+    height: 25em;
+}
+
+.wg-parallax-one {
+    background: url(../images/wger-image-8.jpg) no-repeat center center;
+    background-attachment: fixed;
+}
+
+.wg-parallax-two {
+    background: url(../images/wger-image-7.jpg) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.wg-parallax-two .register {
+    width: 40%;
+    margin: 0 auto;
+    padding: 10em 0;
+    text-align: center;
+}
+
+.wg-parallax-two .register a {
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid #b44097;
+    background: transparent;
+    color: #FFF;
+    padding: 1em 6em;
+    transition: background 3s ease-in-out;
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+}
+
+.wg-parallax-two .register a:hover {
+    background: linear-gradient(to left, #b44097, #009ee2);
+}
+
+.wg-intro {
+    width: 100%;
+    margin: 0 auto;
+    background: url(../images/wger-image-6.jpg) no-repeat center center #0a0b0d;
+    background-size: cover;
+}
+
+.wg-intro .intro {
+    width: 60%;
+    margin: 0 auto;
+    padding: 10em 2em;
+    text-align: center;
+}
+
+.wg-intro .intro p {
+    color: #FFF;
+    font-size: 2em;
+    letter-spacing: .2em;
+    font-weight: 100;
+}
+
+.wg-intro .intro p span {
+    color: #009ee2;
+}
+
+.wg-intro .intro h3 {
+    color: #FFF;
+    letter-spacing: .2em;
+    font-size: 2em;
+}
+
+.wg-intro .intro .mouse {
+    background: #4e5559 linear-gradient(transparent 0%, transparent 50%, #009de2 50%, #b44097 100%);
+    position: relative;
+    width: 32px;
+    height: 54px;
+    background-size: 100% 100%;
+    border-radius: 100px;
+    background-size: 225%;
+    animation: colorSlide 5s linear infinite, nudgeMouse 5s ease-out infinite;
+    margin: 0 auto;
+    top: 7em;
+}
+
+.wg-intro .intro .mouse:before,
+.wg-intro .intro .mouse:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.wg-intro .intro .mouse:before {
+    width: 22px;
+    height: 41px;
+    background-color: #222a30;
+    border-radius: 100px;
+}
+
+.wg-intro .intro .mouse:after {
+    background-color: #009ee2;
+    width: 4px;
+    height: 4px;
+    border-radius: 100%;
+    animation: trackBallSlide 5s linear infinite;
+}
+
+@keyframes colorSlide {
+    0% {
+        background-position: 0% 100%;
+    }
+    20% {
+        background-position: 0% 0%;
+    }
+    21% {
+        background-color: #4e5559;
+    }
+    29.99% {
+        background-color: #ffffff;
+        background-position: 0% 0%;
+    }
+    30% {
+        background-color: #4e5559;
+        background-position: 0% 100%;
+    }
+    50% {
+        background-position: 0% 0%;
+    }
+    51% {
+        background-color: #4e5559;
+    }
+}
+
+.wg-advantages {
+    width: 100%;
+    margin: 3em auto;
+}
+
+.wg-advantages .intro {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.wg-advantages .intro p {
+    text-transform: capitalize;
+    padding: 1em;
+}
+
+.wg-advantages .advantages {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2em;
+    padding: 3em 0;
+}
+
+.wg-advantages .advantages .item {
+    padding: 2em;
+}
+
+.wg-advantages .advantages .item h2 {
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    color: #FFF;
+}
+
+.wg-advantages .advantages .item p {
+    color: #fff;
+    font-size: .9em;
+    text-align: justify;
+    line-height: 1.5em;
+}
+
+.wg-advantages .advantages .item a {
+    color: #FFF;
+    font-family: 'Quicksand', sans-serif;
+    border: 1px solid #b44097;
+    padding: .5em 2em;
+    letter-spacing: .2em;
+    font-size: .9em;
+    margin-top: 1em;
+    transition: border .2s ease-in;
+    transition: background .4s ease-in;
+}
+
+.wg-advantages .advantages .item a:hover {
+    background: #b44097;
+    border: 1px solid #009ee2;
+}
+
+.wg-advantages .advantages .item .wg-color {
+    padding: 2.8em;
+    background: linear-gradient(to right, rgba(0, 158, 226, 0.6), rgba(180, 64, 151, 0.7));
+}
+
+.wg-advantages .advantages .item .wg-color:hover {
+    background: rgba(0, 158, 226, 0.6);
+}
+
+.wg-advantages .advantages .workouts {
+    background: url(../images/wger-image-13.jpeg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-advantages .advantages .nutrition {
+    background: url(../images/wger-image-1.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-advantages .advantages .diary {
+    background: url(../images/wger-image-5.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-how {
+    width: 100%;
+    margin: 0 auto;
+    background: #000;
+    background-size: cover;
+    display: grid;
+    grid-template-columns: auto 50%;
+}
+
+.wg-how .image {
+    background: url(../images/wger-image-12.jpeg) no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.wg-how .image .wg-color {
+    background: linear-gradient(to right, rgba(0, 158, 226, 0.1), rgba(180, 64, 151, 0.3));
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.wg-how .how {
+    float: right;
+    background: #0a0b0d;
+    padding: 2em;
+}
+
+.wg-how .how h2 {
+    color: #b44097;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.wg-how .how .list {
+    display: block;
+    width: 80%;
+}
+
+.wg-how .how .list h3 {
+    color: #eceaea;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+}
+
+.wg-how .how .list p {
+    color: #8e8a8a;
+    text-align: justify;
+    line-height: 1.4em;
+}
+
+.wg-features {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.wg-features .intro {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.wg-features .intro h2 {
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.wg-features .features {
+    width: 85%;
+    margin: 2em auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2em;
+}
+
+.wg-features .features .feature {
+    padding: 2em;
+    width: 300px;
+    max-width: 300px;
+}
+
+.wg-features .features .feature .wg-color {
+    background: linear-gradient(to right, rgba(0, 158, 226, 0.2), rgba(180, 64, 151, 0.5));
+    width: 100%;
+    height: 100%;
+    padding: 3em 1em;
+    margin: 0 auto;
+}
+
+.wg-features .features .feature .wg-color .icon {
+    width: 60px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.wg-features .features .feature .wg-color .icon img {
+    width: 100%;
+    margin: 0 auto;
+    transition: display .2s;
+}
+
+.wg-features .features .feature .wg-color .title {
+    text-align: center;
+}
+
+.wg-features .features .feature .wg-color .title h2 {
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 100;
+    font-size: 1em;
+    letter-spacing: .2em;
+    transition: display .5s;
+}
+
+.wg-features .features .feature .wg-color .title p {
+    display: none;
+    position: relative;
+    text-align: center;
+    font-size: .9em;
+    color: #FFF;
+    line-height: 1.5em;
+    transition: display .9s ease-in-out;
+}
+
+.wg-features .features .feature .wg-color:hover {
+    background: linear-gradient(to right, rgba(0, 158, 226, 0.5), rgba(180, 64, 151, 0.7));
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+}
+
+.wg-features .features .feature:hover .wg-color .title p {
+    display: block;
+}
+
+.wg-features .features .feature:hover .wg-color .title h2 {
+    display: none;
+}
+
+.wg-features .features .feature:hover .wg-color .icon img {
+    display: none;
+}
+
+
+/* .wg-features background images. */
+
+.wg-features .weight {
+    background: url(../images/wger-image-1.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-features .calendar {
+    background: url(../images/wger-image-9.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-features .exercise {
+    background: url(../images/wger-image-6.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-features .gym {
+    background: url(../images/wger-image-4.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-features .rest {
+    background: url(../images/wger-image-10.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-features .free {
+    background: url(../images/wger-image-5.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.wg-footer {
+    width: 100%;
+    margin: 0 auto;
+    background: #0a0b0d;
+    clear: both;
+    padding: 0;
+}
+
+.wg-footer .upper {
+    width: 70%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2em;
+}
+
+.wg-footer .upper .menu {
+    padding: 1em;
+    text-align: justify;
+}
+
+.wg-footer .upper .menu h2 {
+    font-size: 1em;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    color: #009de2;
+    padding: 1em 0;
+}
+
+.wg-footer .upper .menu ul {
+    padding: 0;
+}
+
+.wg-footer .upper .menu ul li {
+    list-style: none;
+    padding: .5em 0;
+}
+
+.wg-footer .upper .menu ul li a {
+    color: #f5f5f5;
+    letter-spacing: .2em;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 100;
+    font-size: .8em;
+    text-transform: capitalize;
+}
+
+.wg-footer .upper .menu ul li a:hover {
+    color: #b44097;
+}
+
+.wg-footer .lower {
+    width: 100%;
+    margin: 0 auto;
+    background: #333;
+    text-align: center;
+    padding: 1em 0;
+}
+
+.wg-footer .lower p {
+    color: #fff;
+    font-size: .9em;
+    letter-spacing: .2em;
+}
+
+.wg-footer .lower p span {
+    color: #b44097;
+    font-weight: 700;
+    font-size: 1.2em;
+}
