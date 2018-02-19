@@ -106,6 +106,7 @@ header .navigation a.login:hover {
 
 .wg-parallax-one {
     background: url(../images/wger-image-8.jpg) no-repeat center center;
+    background-size: cover;
     background-attachment: fixed;
 }
 
