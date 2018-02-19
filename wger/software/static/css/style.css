@@ -79,6 +79,12 @@ header .navigation a {
     font-family: 'Quicksand', sans-serif;
     letter-spacing: .2em;
     float: right;
+    transition: border-bottom 6s ease-in-out';
+
+}
+
+header .navigation a:hover {
+    border-bottom: 2px solid #009de2;
 }
 
 header .navigation a.login {
@@ -252,6 +258,7 @@ header .navigation a.login:hover {
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 2em;
+    padding: 3em 0;
 }
 
 .wg-advantages .advantages .item {
@@ -291,7 +298,7 @@ header .navigation a.login:hover {
 
 .wg-advantages .advantages .item .wg-color {
     padding: 2.8em;
-    background: linear-gradient(to right, rgba(0, 158, 226, 0.4), rgba(180, 64, 151, 0.5));
+    background: linear-gradient(to right, rgba(0, 158, 226, 0.6), rgba(180, 64, 151, 0.7));
 }
 
 .wg-advantages .advantages .item .wg-color:hover {
@@ -299,7 +306,7 @@ header .navigation a.login:hover {
 }
 
 .wg-advantages .advantages .workouts {
-    background: url(../images/wger-image-7.jpg) no-repeat center center;
+    background: url(../images/wger-image-13.jpeg) no-repeat center center;
     background-size: cover;
 }
 
@@ -323,7 +330,7 @@ header .navigation a.login:hover {
 }
 
 .wg-how .image {
-    background: url(../images/wger-image-2.jpg) no-repeat;
+    background: url(../images/wger-image-12.jpeg) no-repeat;
     background-size: cover;
     height: 100%;
 }
@@ -410,6 +417,7 @@ header .navigation a.login:hover {
 .wg-features .features .feature .wg-color .icon img {
     width: 100%;
     margin: 0 auto;
+    transition: display .2s;
 }
 
 .wg-features .features .feature .wg-color .title {
@@ -422,6 +430,36 @@ header .navigation a.login:hover {
     font-weight: 100;
     font-size: 1em;
     letter-spacing: .2em;
+    transition: display .5s;
+}
+
+.wg-features .features .feature .wg-color .title p {
+    display: none;
+    position: relative;
+    text-align: center;
+    font-size: .9em;
+    color: #FFF;
+    line-height: 1.5em;
+    transition: display .9s ease-in-out;
+}
+
+.wg-features .features .feature .wg-color:hover {
+    background: linear-gradient(to right, rgba(0, 158, 226, 0.5), rgba(180, 64, 151, 0.7));
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+}
+
+.wg-features .features .feature:hover .wg-color .title p {
+    display: block;
+}
+
+.wg-features .features .feature:hover .wg-color .title h2 {
+    display: none;
+}
+
+.wg-features .features .feature:hover .wg-color .icon img {
+    display: none;
 }
 
 

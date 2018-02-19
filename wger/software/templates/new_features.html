@@ -8,15 +8,13 @@
         </div>
         <div class="navigation">
             <a href="{% url 'core:user:login' %}" class="login">login</a>
-            <a href="{% url 'manager:workout:overview' %}">try sandbox</a>
+            <a href="{% url 'core:user:registration' %}">register</a>
             <a href="#feat">features</a>
             <a href="#how">how it works</a>
             <a href="#wger">wger</a>
-
         </div>
     </header>
 </div>
-<div class="clearfix"></div>
 <div class="clearfix"></div>
 <div class="wg-intro">
     <div class="intro">
@@ -29,18 +27,17 @@
     </div>
 </div>
 <div class="clearfix"></div>
-<div class="wg-advantages">
+<div class="wg-advantages" id="wger">
     <div class="intro">
         <p>wger workout manager is a free, open source web application that manages your exercises, workouts and nutrition.</p>
     </div>
-    <div class="advantages" id="wger">
+    <div class="advantages">
         <div class="item workouts">
             <div class="wg-color">
                 <h2>Workouts</h2>
                 <div class="under"></div>
                 <p> Create and manage flexible workout routines for any goals you have. Select exactly which exercises you'll do and how many repetitions, time or distance you want to do them. You can also combine different workouts into a schedule.</p>
                 <div class="clearfix"></div>
-                <a href="{% url 'core:user:registration' %}" class="cta">Get Started</a>
             </div>
         </div>
 
@@ -50,7 +47,6 @@
                 <div class="under"></div>
                 <p> Create your personal diet plan by creating as many meals with as many different ingredients as you need. The application will calculate the nutritional values about the whole plan as well as the indivual meals.</p>
                 <div class="clearfix"></div>
-                <a href="{% url 'core:user:registration' %}" class="cta">Get Started</a>
             </div>
         </div>
 
@@ -60,7 +56,6 @@
                 <div class="under"></div>
                 <p> Enter the weights and repetitions you did for each exercise to generate diagrams that let you see at a glance how well you are doing. The raw numbers are of course still accessible. You can also enter notes and a general impression.</p>
                 <div class="clearfix"></div>
-                <a href="{% url 'core:user:registration' %}" class="cta">Get Started</a>
             </div>
         </div>
     </div>
@@ -68,7 +63,6 @@
 </div>
 <div class="clearfix"></div>
 
-<div class="wg-parallax-one parallax"></div>
 <div class="wg-how" id="how">
     <div class="image">
         <div class="wg-color"></div>
@@ -112,6 +106,8 @@
                 </div>
                 <div class="title">
                     <h2>Weight Tracking</h2>
+                    <p>Keep track of your progress with the body weight chart. This makes it easy to see if you are reaching your goals or need to adjust something.</p>
+
                 </div>
             </div>
         </div>
@@ -123,6 +119,7 @@
                 </div>
                 <div class="title">
                     <h2>calendar</h2>
+                    <p>Get an overview of how and when you trained as well as how you personally felt you performed. Access all your individual diary entries with one click.</p>
                 </div>
             </div>
         </div>
@@ -134,6 +131,8 @@
                 </div>
                 <div class="title">
                     <h2>Exercise Database</h2>
+                    <p>The exercise database contains more than hundred exercises from which you can choose when creating a workout. You can view them by category and equipment used or muscles trained.</p>
+
                 </div>
             </div>
         </div>
@@ -145,6 +144,7 @@
                 </div>
                 <div class="title">
                     <h2>Gym Management</h2>
+                    <p>Use the application for your gym to manage its members, their workouts and attendance. You can manage the members' contracts, keep notes and upload any files you might need.</p>
                 </div>
             </div>
         </div>
@@ -156,6 +156,7 @@
                 </div>
                 <div class="title">
                     <h2>Rest API</h2>
+                    <p>wger provides a REST API with full read and write access to all data so you can integrate your own application and tools.</p>
                 </div>
             </div>
         </div>
@@ -167,6 +168,7 @@
                 </div>
                 <div class="title">
                     <h2>100% FREE</h2>
+                    <p>wger is 100% free to use. Go ye and transform.</p>
                 </div>
             </div>
         </div>
@@ -175,7 +177,7 @@
 <div class="clearfix"></div>
 <div class="wg-parallax-two parallax">
     <div class="register">
-        <a href="{% url 'core:user:registration' %}">Register Now</a>
+        <a href="{% url 'core:user:registration' %}">Get Started</a>
     </div>
 </div>
 <div class="clearfix"></div>

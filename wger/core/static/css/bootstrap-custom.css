@@ -22,16 +22,21 @@
  *
  **************************************************************/
 
-html {
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-}
 
+@import url('https://fonts.googleapis.com/css?family=Quicksand|Ubuntu+Mono');
 body {
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     background-color: #204A87;
     background: linear-gradient(to left, #b44097, #009ee2) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Ubuntu Mono', monospace;
 }
 
 @media (min-width: 992px) {
