@@ -8,11 +8,8 @@ import dj_database_url
 DEBUG = True
 TEMPLATES[0]['OPTIONS']['debug'] = True
 
-ADMINS = (
-    ('Your name', 'your_email@example.com'),
-)
+ADMINS = (('Your name', 'your_email@example.com'), )
 MANAGERS = ADMINS
-
 
 DATABASES = {
     'default': {
@@ -26,9 +23,7 @@ DATABASES = {
 }
 
 if os.environ.get("HEROKU_DEPLOYMENT") == '1':
-     DATABASES = {
-        'default': dj_database_url.config()
-     }
+    DATABASES = {'default': dj_database_url.config()}
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '4g1d=%1)!)m!u^$6-3!p^r7-5vu@*_g=fsf-#s$@t+d4ystnbg'
@@ -52,7 +47,7 @@ MEDIA_URL = '/media/'
 ALLOWED_HOSTS = '*'
 
 # This might be a good idea if you setup memcached
-#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Configure a real backend in production
 if DEBUG:
@@ -62,8 +57,7 @@ if DEBUG:
 WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 
 # Your twitter handle, if you have one for this instance.
-#WGER_SETTINGS['TWITTER'] = ''
-
+# WGER_SETTINGS['TWITTER'] = ''
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -71,6 +65,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'wger/core/static'),
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'wger/core/static'), )
