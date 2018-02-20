@@ -1,3 +1,7 @@
+#tabs ul {
+  padding-left: 0px;
+}
+
 #tabs .ui-tab {
   display: inline-block;
   margin: 0 0 -1px;

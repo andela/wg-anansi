@@ -89,39 +89,42 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
             'active_members': [],
             'inactive_members': []
         }
+        members_index = 1
+        active_members_index = 1
+        inactive_members_index = 1
+        admins_index = 1
 
         for u in Gym.objects.get_members(
                 self.kwargs['pk']).select_related('usercache'):
             out['members'].append({
                 'obj': u,
-                'last_log': u.usercache.last_activity
+                'last_log': u.usercache.last_activity,
+                'index': members_index
             })
+            members_index += 1
+            
             if u.is_active:
-                out['active_members'].append({
-                    'obj':
-                    u,
-                    'last_log':
-                    u.usercache.last_activity
-                })
+                out['active_members'].append({'obj': u,
+                                       'last_log': u.usercache.last_activity,
+                                       'index': active_members_index})
+                active_members_index += 1
+
             else:
-                out['inactive_members'].append({
-                    'obj':
-                    u,
-                    'last_log':
-                    u.usercache.last_activity
-                })
+                out['inactive_members'].append({'obj': u,
+                                       'last_log': u.usercache.last_activity,
+                                       'index': inactive_members_index})
+                inactive_members_index += 1
 
         # admins list
         for u in Gym.objects.get_admins(self.kwargs['pk']):
-            out['admins'].append({
-                'obj': u,
-                'perms': {
-                    'manage_gym': u.has_perm('gym.manage_gym'),
-                    'manage_gyms': u.has_perm('gym.manage_gyms'),
-                    'gym_trainer': u.has_perm('gym.gym_trainer'),
-                    'any_admin': is_any_gym_admin(u)
-                }
-            })
+            out['admins'].append({'obj': u,
+                                  'index': admins_index,
+                                  'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
+                                            'manage_gyms': u.has_perm('gym.manage_gyms'),
+                                            'gym_trainer': u.has_perm('gym.gym_trainer'),
+                                            'any_admin': is_any_gym_admin(u)}
+                                  })
+            admins_index += 1
         return out
 
     def get_context_data(self, **kwargs):
@@ -132,15 +135,10 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
         context['admin_count'] = len(context['object_list']['admins'])
         context['user_count'] = len(context['object_list']['members'])
-        context['user_table'] = {
-            'keys': [_('ID'),
-                     _('Username'),
-                     _('Name'),
-                     _('Last activity')],
-            'users': context['object_list']['members'],
-            'active_users': context['object_list']['active_members'],
-            'inactive_users': context['object_list']['inactive_members']
-        }
+        context['user_table'] = {'keys': [_('Index'), _('Username'), _('Name'), _('Last activity')],
+                                 'users': context['object_list']['members'],
+                                 'active_users': context['object_list']['active_members'],
+                                 'inactive_users': context['object_list']['inactive_members']}
         return context
 
 

@@ -76,7 +76,7 @@ class Gym(m.Model):
         '''
         Return a more human-readable representation
         '''
-        return self.name
+        return self.name.title()
 
     def delete(self, using=None):
         '''
