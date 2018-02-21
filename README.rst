@@ -81,6 +81,29 @@ Then install the python packages from pypi in the virtualenv::
 
 3) Log in as: **admin**, password **admin**
 
+4) Social login options. Export the social auth keys as environment variables to get this feature working.
+   
+For Google, visit https://console.developers.google.com to set up credentials that is the client ID and client secret. For a detailed explanation, visit this `site <https://fosstack.com/how-to-add-google-authentication-in-django/>`_.
+
+::
+
+ $ export GOOGLE_KEY='client ID' 
+ $ export GOOGLE_SECRET='client secret'
+
+For Twitter, visit https://apps.twitter.com to set up the API key and API secret. For a detailed explanation, visit this `site <https://simpleisbetterthancomplex.com/tutorial/2016/10/24/how-to-add-social-login-to-django.html>`_.
+  
+::
+  
+ $ export TWITTER_KEY='API key' 
+ $ export TWITTER_SECRET='API secret'
+
+For Facebook, visit https://developers.facebook.com/ to set up the App ID and App secret. For a detailed explanation, visit this `site <https://simpleisbetterthancomplex.com/tutorial/2016/10/24/how-to-add-social-login-to-django.html>`_.
+  
+::
+  
+ $ export FACEBOOK_KEY='App ID' 
+ $ export FACEBOOK_SECRET='App secret'
+
 After the first run you can just use django's development server. You will
 probably want to move the settings and sqlite files to your git folder, see
 the comments in the documentation (development chapter) about this::

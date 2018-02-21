@@ -33,4 +33,23 @@
         {% trans "Reset password" %}
     </a>
 </p>
+<h4>{% trans "or" %}</h4>
+<p>
+    <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-primary btn-block btn-social btn-twitter "> 
+        <span class="fa fa-twitter"></span> 
+         Login with Twitter
+    </a>
+</p>
+<p>
+    <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-social btn-facebook btn-info">   
+        <span class="fa fa-facebook"></span> 
+         Login with Facebook
+    </a>
+</p>
+<p>
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-block btn-social btn-google btn-danger">
+        <span class="fa fa-google"></span> 
+         Login with Google
+    </a>
+</p>
 {% endblock %}

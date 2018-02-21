@@ -85,6 +85,10 @@ INSTALLED_APPS = (
 
     # django-bower for installing bower packages
     'djangobower',
+
+    # social logins
+    'social_django',
+
 )
 
 # added list of external libraries to be installed by bower
@@ -124,10 +128,21 @@ MIDDLEWARE_CLASSES = (
     # Django mobile
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
+
+    # social logins
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 )
 
-AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
-                           'wger.utils.helpers.EmailAuthBackend')
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth',  # for Google authentication
+
+    'social_core.backends.twitter.TwitterOAuth', # for Twitter authentication
+    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+
+    'django.contrib.auth.backends.ModelBackend',
+    'wger.utils.helpers.EmailAuthBackend'
+)
 
 TEMPLATES = [
     {
@@ -150,7 +165,11 @@ TEMPLATES = [
                 'django_mobile.context_processors.flavour',
 
                 # Breadcrumbs
-                'django.template.context_processors.request'
+                'django.template.context_processors.request',
+
+                # social logins
+                'social_django.context_processors.backends', 
+                'social_django.context_processors.login_redirect', 
             ],
             'loaders': [
                 # Django mobile
@@ -190,9 +209,27 @@ LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
 
 #
+# Twitter Login
+#
+SOCIAL_AUTH_TWITTER_KEY = os.environ.get("TWITTER_KEY")
+SOCIAL_AUTH_TWITTER_SECRET = os.environ.get("TWITTER_SECRET")
+
+#
+# Facebook Login
+#
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get("FACEBOOK_KEY")  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get("FACEBOOK_SECRET") # App Secret
+
+#
+# Google Login
+#
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("GOOGLE_KEY") # Client Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("GOOGLE_SECRET") # Secret Key
+
+#
 # Internationalization
 #
-USE_TZ = True
+USE_TZ = True 
 USE_I18N = True
 USE_L10N = True
 
