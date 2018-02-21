@@ -7,9 +7,10 @@
 $(document).ready( function () {
     /* Make table sortable */
     $('#inactive_member_list').DataTable({
-        paging: false,
+        paging: true,
         bFilter: true,
-        bInfo : false
+        bInfo : false,
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
     });
 });
 </script>
@@ -26,7 +27,7 @@ $(document).ready( function () {
 {% for current_user in user_table.inactive_users %}
 <tr>
     <td>
-        {{current_user.obj.pk}}
+        {{current_user.index}}
     </td>
     <td>
         <a href="{% url 'core:user:overview' current_user.obj.pk %}">{{current_user.obj}}</a>
