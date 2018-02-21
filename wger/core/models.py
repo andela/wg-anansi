@@ -118,6 +118,16 @@ class UserProfile(models.Model):
     Flag to mark a temporary user (demo account)
     '''
 
+    can_add_users_via_api = models.BooleanField(default=False, editable=False)
+    '''
+    Flag to mark a User that can create users though API endpoint
+    '''
+
+    is_created_via_api = models.BooleanField(default=False, editable=False)
+    '''
+    Flag to mark a User created via API endpoint
+    '''
+
     #
     # User preferences
     #
@@ -496,6 +506,22 @@ by the US Department of Agriculture. It is extremely complete, with around
         Returns the object that has owner information
         '''
         return self
+
+@python_2_unicode_compatible
+class UserViaApi(models.Model):
+    '''
+    A table of all users created Via API
+    '''
+
+    user = models.OneToOneField(User, editable=False)
+    '''
+    The user created
+    '''
+
+    created_by = models.ForeignKey(User, related_name="api_user")
+    '''
+    The API user responsible for creating the user
+    '''
 
 
 @python_2_unicode_compatible
