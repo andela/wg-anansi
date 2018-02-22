@@ -16,26 +16,25 @@
 {% block content %}
 
 {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
-<div id="tabs">
-  <ul>
-      <li><a href="#admins_and_trainers">Trainers</a></li>
-      <li><a href="#inactive_trainers">Inactive Trainers</a></li>
-      <li><a href="#all_trainees">Trainees</a></li>
-      <li><a href="#active_trainees">Active Trainees</a></li>
-      <li><a href="#inactive_trainees">Inactive Trainees</a></li>
+  <ul class="nav nav-tabs" style="margin-bottom: 20px">
+      <li class="active"><a data-toggle="tab" href="#admins_and_trainers">Admins & Trainers</a></li>
+      <li><a data-toggle="tab" href="#inactive_trainers">Inactive Trainers</a></li>
+      <li><a data-toggle="tab" href="#all_trainees">Trainees</a></li>
+      <li><a data-toggle="tab" href="#active_trainees">Active Trainees</a></li>
+      <li><a data-toggle="tab" href="#inactive_trainees">Inactive Trainees</a></li>
   </ul>
 
-    <div id="admins_and_trainers">{% include 'gym/admins_and_trainers.html' %}</div>
+  <div class="tab-content">
+    <div id="admins_and_trainers" class="tab-pane fade in active">{% include 'gym/admins_and_trainers.html' %}</div>
 
-    <div id="inactive_trainers">{% include 'gym/inactive_trainers.html' %}</div>
+    <div id="inactive_trainers" class="tab-pane fade">{% include 'gym/inactive_trainers.html' %}</div>
 
-    <div id="all_trainees">{% include 'gym/partial_user_list.html' %}</div>
+    <div id="all_trainees" class="tab-pane fade">{% include 'gym/partial_user_list.html' %}</div>
 
-    <div id="active_trainees">{% include 'gym/active_user_list.html' %}</div>
+    <div id="active_trainees" class="tab-pane fade">{% include 'gym/active_user_list.html' %}</div>
 
-    <div id="inactive_trainees">{% include 'gym/inactive_user_list.html' %}</div>
-
-</div>
+    <div id="inactive_trainees" class="tab-pane fade">{% include 'gym/inactive_user_list.html' %}</div>
+  </div>
 
 {% endif %}
 {% endblock %}

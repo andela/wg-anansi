@@ -134,14 +134,7 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
                                             'manage_gyms': u.has_perm('gym.manage_gyms'),
                                             'gym_trainer': u.has_perm('gym.gym_trainer'),
                                             'any_admin': is_any_gym_admin(u)}
-                                  })
-                print(out['inactive_trainers'])
-            
-            if u.has_perm('gym.manage_gym')  or u.has_perm('gym.manage_gyms'):
-                print("Yeah, we have a manager")
-            else:
-                print("Nah")
-                
+                                  })   
         return out
 
     def get_context_data(self, **kwargs):
