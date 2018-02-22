@@ -118,6 +118,11 @@ router.register(
     r'setting-weightunit',
     core_api_views.WeightUnitViewSet,
     base_name='setting-weight-unit')
+router.register(
+    r'users',
+    core_api_views.ApiCreatedUsersViewSet,
+    base_name='users-via-api')
+
 
 # Exercises app
 router.register(
