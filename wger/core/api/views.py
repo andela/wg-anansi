@@ -21,12 +21,18 @@ from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 
 from wger.core.models import (UserProfile, Language, DaysOfWeek, License,
-                              RepetitionUnit, WeightUnit)
+                              RepetitionUnit, WeightUnit, UserViaApi)
 from wger.core.api.serializers import (
     UsernameSerializer, LanguageSerializer, DaysOfWeekSerializer,
     LicenseSerializer, RepetitionUnitSerializer, WeightUnitSerializer)
-from wger.core.api.serializers import UserprofileSerializer
-from wger.utils.permissions import UpdateOnlyPermission, WgerPermission
+from wger.core.api.serializers import (
+    UserprofileSerializer, ApiCreatedUsersSerializer,
+    UserInfoSerializer
+)
+from wger.utils.permissions import (
+    UpdateOnlyPermission, WgerPermission,
+    CreateUserViaApiPermission
+)
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -108,3 +114,26 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
     filter_fields = ('name', )
+
+class ApiCreatedUsersViewSet(viewsets.ModelViewSet):
+    '''
+    API endpoint for user objects created
+    '''
+    is_private = True
+    permission_classes = (CreateUserViaApiPermission,)
+    serializer_class = ApiCreatedUsersSerializer    
+    ordering_fields = '__all__'
+
+    def get_queryset(self):
+        '''
+        Only allow access to appropriate objects
+        '''
+        return UserViaApi.objects.filter(created_by=self.request.user)
+
+    def get_serializer_class(self):
+        '''
+        select the serializer to use 
+        '''
+        if self.request.method in ['PUT', 'POST']:
+            return UserInfoSerializer
+        return ApiCreatedUsersSerializer
