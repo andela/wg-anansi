@@ -61,6 +61,7 @@ class Command(BaseCommand):
                 username = str(args[0])
                 user = User.objects.get(username=username)
                 user.userprofile.can_add_users_via_api = True
+                user.userprofile.save()
                 self.stdout.write('User {} can now create users via the REST API.'.format(
                     user.username
                 ))
