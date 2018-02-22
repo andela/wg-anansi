@@ -85,6 +85,7 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
         '''
         out = {
             'admins': [],
+            'inactive_trainers': [],
             'members': [],
             'active_members': [],
             'inactive_members': []
@@ -125,6 +126,15 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
                                             'any_admin': is_any_gym_admin(u)}
                                   })
             admins_index += 1
+
+            if not u.is_active:
+                out['inactive_trainers'].append({'obj': u,
+                                  'index': admins_index,
+                                  'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
+                                            'manage_gyms': u.has_perm('gym.manage_gyms'),
+                                            'gym_trainer': u.has_perm('gym.gym_trainer'),
+                                            'any_admin': is_any_gym_admin(u)}
+                                  })   
         return out
 
     def get_context_data(self, **kwargs):
