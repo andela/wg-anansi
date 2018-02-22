@@ -1,51 +1,26 @@
-{% extends "base.html" %}
-{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+{% extends "base.html" %} {% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %} {% block title %}{{gym}} Users{% endblock %} {% block breadcrumbs %} {{ block.super }} {% if perms.gym.manage_gyms %} {% breadcrumb "Gyms" "gym:gym:list" %}
+{% breadcrumb_raw gym "gym:gym:user-list" gym.pk %} {% endif %} {% endblock %} {% block content %} {% if perms.gym.manage_gym or perms.gym.gym_trainer %}
 
-{% block title %}{{gym}} Users{% endblock %}
-
-{% block breadcrumbs %}
-    {{ block.super }}
-
-    {% if perms.gym.manage_gyms %}
-        {% breadcrumb "Gyms" "gym:gym:list" %}
-        {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
-    {% endif %}
-{% endblock %}
-
-
-{% block content %}
-
-{% if perms.gym.manage_gym or perms.gym.gym_trainer %}
-
-  <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#admins_and_trainers">Admins & Trainers</a></li>
-      <li><a data-toggle="tab" href="#inactive_trainers">Inactive Trainers</a></li>
-      <li><a data-toggle="tab" href="#all_trainees">Trainees</a></li>
-      <li><a data-toggle="tab" href="#active_trainees">Active Trainees</a></li>
-      <li><a data-toggle="tab" href="#inactive_trainees">Inactive Trainees</a></li>
-  </ul>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#admins_and_trainers">Admins & Trainers</a></li>
+    <li><a data-toggle="tab" href="#inactive_trainers">Inactive Trainers</a></li>
+    <li><a data-toggle="tab" href="#all_trainees">Trainees</a></li>
+    <li><a data-toggle="tab" href="#active_trainees">Active Trainees</a></li>
+    <li><a data-toggle="tab" href="#inactive_trainees">Inactive Trainees</a></li>
+</ul>
 <div class="tab-content" style="margin-top: 20px">
     <div id="admins_and_trainers" class="tab-pane fade in active">{% include 'gym/admins_and_trainers.html' %}</div>
 
-    <div id="inactive_trainers" class="tab-pane fade">{% include 'gym/inactive_trainers.html' %}</div>
+    <div id="admins_and_trainers">{% include 'gym/admins_and_trainers.html' %}</div>
 
-    <div id="all_trainees" class="tab-pane fade">{% include 'gym/partial_user_list.html' %}</div>
+    <div id="all_trainees">{% include 'gym/partial_user_list.html' %}</div>
 
-    <div id="active_trainees" class="tab-pane fade">{% include 'gym/active_user_list.html' %}</div>
+    <div id="active_trainees">{% include 'gym/active_user_list.html' %}</div>
 
-    <div id="inactive_trainees" class="tab-pane fade">{% include 'gym/inactive_user_list.html' %}</div>
-
+    <div id="inactive_trainees">{% include 'gym/inactive_user_list.html' %}</div>
 </div>
 
-{% endif %}
-{% endblock %}
-
-
-{% block sidebar %}
-{#             #}
-{# Gym details #}
-{#             #}
-{% if perms.gym.change_gym %}
+{% endif %} {% endblock %} {% block sidebar %} {# #} {# Gym details #} {# #} {% if perms.gym.change_gym %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -75,10 +50,7 @@
         <td>{% trans "Email" %}</td>
         <td>
             {% if gym.email %}
-                <a href="mailto:{{gym.email}}">{{gym.email}}</a>
-            {% else %}
-                -/-
-            {% endif %}
+            <a href="mailto:{{gym.email}}">{{gym.email}}</a> {% else %} -/- {% endif %}
         </td>
     </tr>
     <tr>
@@ -88,8 +60,7 @@
     <tr>
         <td>{% trans "Address" %}</td>
         <td>
-            {{gym.zip_code}} {{gym.city}}<br>
-            {{gym.street}}
+            {{gym.zip_code}} {{gym.city}}<br> {{gym.street}}
         </td>
     </tr>
     <tr>
@@ -99,10 +70,7 @@
 </table>
 
 
-{#                   #}
-{# Gym configuration #}
-{#                   #}
-{% if perms.gym.change_gymconfig %}
+{# #} {# Gym configuration #} {# #} {% if perms.gym.change_gymconfig %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -126,10 +94,7 @@
 
 
 
-{#                     #}
-{# Admin configuration #}
-{#                     #}
-{% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
+{# #} {# Admin configuration #} {# #} {% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -147,24 +112,14 @@
         <td>{% trans "Overview of inactive members" %}</td>
         <td style="text-align: right;">
             {% if user.gymadminconfig.overview_inactive %}
-                <span class="{% fa_class 'check' %}"></span>
-            {% else %}
-                <span class="{% fa_class 'times' %}"></span>
-            {% endif %}
+            <span class="{% fa_class 'check' %}"></span> {% else %}
+            <span class="{% fa_class 'times' %}"></span> {% endif %}
         </td>
     </tr>
 </table>
-{% endif %}
-
-
-
-{#                        #}
-{# Contract configuration #}
-{#                        #}
-{% if perms.gym.change_contracttype or perms.gym.change_contractoption %}
-    <h4>{% trans "Contracts" %}</h4>
-{% endif %}
-{% if perms.gym.change_contracttype %}
+{% endif %} {# #} {# Contract configuration #} {# #} {% if perms.gym.change_contracttype or perms.gym.change_contractoption %}
+<h4>{% trans "Contracts" %}</h4>
+{% endif %} {% if perms.gym.change_contracttype %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -198,10 +153,7 @@
     </tr>
     {% endfor %}
 </table>
-{% endif %}
-
-
-{% if perms.gym.change_contractoption %}
+{% endif %} {% if perms.gym.change_contractoption %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -235,14 +187,7 @@
     </tr>
     {% endfor %}
 </table>
-{% endif %}
-
-
-
-{#             #}
-{# Email lists #}
-{#             #}
-{% if perms.email.change_log %}
+{% endif %} {# #} {# Email lists #} {# #} {% if perms.email.change_log %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -276,18 +221,7 @@
     </tr>
     {% endfor %}
 </table>
-{% endif %}
-{% endblock %}
-
-
-
-{#         #}
-{# Options #}
-{#         #}
-{% block options %}
-{% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-    <a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success btn-sm wger-modal-dialog">
+{% endif %} {% endblock %} {# #} {# Options #} {# #} {% block options %} {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+<a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success btn-sm wger-modal-dialog">
         {% trans "Add member" %}
-    </a>
-{% endif %}
-{% endblock %}
+    </a> {% endif %} {% endblock %}
