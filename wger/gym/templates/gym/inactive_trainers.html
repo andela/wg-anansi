@@ -6,7 +6,7 @@
 <script>
 $(document).ready( function () {
     /* Make table sortable */
-    $('#administrators_and_trainers').DataTable({
+    $('#inactive_and_trainers').DataTable({
         paging: true,
         bFilter: true,
         bInfo : false,
@@ -27,7 +27,7 @@ $(document).ready( function () {
 </tr>
 </thead>
 <tbody>
-{% for current_user in object_list.admins %}
+{% for current_user in object_list.inactive_trainers %}
 <tr>
     <td>
         {{current_user.index}}
