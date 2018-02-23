@@ -170,6 +170,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     objects = SubmissionManager()
     '''Custom manager'''
 
+    author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    '''Exercise's Author'''
+
     category = models.ForeignKey(ExerciseCategory, verbose_name=_('Category'))
     description = models.TextField(
         max_length=2000,
@@ -340,6 +343,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         '''
         if request.user.has_perm('exercises.add_exercise'):
             self.status = self.STATUS_ACCEPTED
+            self.author = request.user
             if not self.license_author:
                 self.license_author = request.get_host().split(':')[0]
         else:
