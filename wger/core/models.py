@@ -523,6 +523,12 @@ class UserViaApi(models.Model):
     The API user responsible for creating the user
     '''
 
+    def __str__(self):
+        '''
+        Return a more readable representation of the object
+        '''
+
+        return self.user.username
 
 @python_2_unicode_compatible
 class UserCache(models.Model):
