@@ -423,9 +423,32 @@ function getExerciseFormset(exerciseId) {
       $formsets.append(data);
       $('#exercise-search-log').scrollTop(0);
       $formsets.trigger('create');
+      if ($('#drop-set-checkbox').is(':checked')){
+          disableRepsUnitsInput();
+          $('#repetitions').hide();
+      } else {
+          $('#repetitions').show();
+      };
     });
   }
 }
+
+//Function to disable and hide reps number input and set units as until Failure
+function disableRepsUnitsInput(){
+    var checked = $('#drop-set-checkbox').prop('checked');
+    $('.field-reps input').val(0).parent().toggle();
+    $('.form-header-reps').toggle();
+    $('.field-repetition_unit').toggleClass('drop-set-reflow').children().val(2);
+    $('.field-repetition_unit select.main').prop('disabled',checked);
+    $('.form-header-repetition_unit').toggleClass('drop-set-reflow');
+    $('.numbering').toggleClass('drop-set-reflow');
+
+}
+// When drop sets are enabled, calls below function and deletes set rows
+$(document).on("change", "input[name='drop_set']", function () {
+    disableRepsUnitsInput();
+    $('#repetitions').toggle();
+});
 
 /*
  Updates all exercise formsets, e.g. when the number of sets changed
@@ -452,6 +475,12 @@ function updateAllExerciseFormset() {
             $formsets.append(data);
             $('#exercise-search-log').scrollTop(0);
             $formsets.trigger('create');
+            if ($('#drop-set-checkbox').is(':checked')){
+                disableRepsUnitsInput();
+                $('#repetitions').hide();
+            } else {
+                $('#repetitions').show();
+            };
           }).promise();
         });
       }
