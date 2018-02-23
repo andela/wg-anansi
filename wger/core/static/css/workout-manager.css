@@ -33,6 +33,29 @@
     background-color: #FFF;
 }
 
+#drop-set-checkbox {
+    margin-top: 12px;
+}
+
+.drop-set {
+    margin-top: -15px;
+}
+
+.drop-set-reflow.field-repetition_unit {
+    margin-left: 15px;
+}
+
+.drop-set-reflow.form-header-repetition_unit {
+    margin-left: 75px;
+}
+
+.drop-set-reflow.numbering {
+    margin-left: 50px;
+}
+
+.exercise-label {
+    margin-left: 150px;
+}
 
 /*
  * Images in links are vertically aligned
@@ -124,7 +147,7 @@ a:hover img
     -webkit-filter: grayscale(0%);
     -moz-filter: grayscale(0%);
     -ms-filter: grayscale(0%);
-    -o-filter: grayscale(0%);	
+    -o-filter: grayscale(0%);
 }
 */
 
@@ -172,7 +195,7 @@ header h1{
 }
 
 header a,
-header a:hover, 
+header a:hover,
 header a:focus{
     color:white;
     font-size:90%;
