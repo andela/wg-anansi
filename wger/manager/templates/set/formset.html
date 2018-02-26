@@ -1,5 +1,13 @@
 {% load wger_extras %}
 {% load i18n %}
+<!-- Added style in html to avoid blank space before formset is rendered -->
+<style>
+#formsets {
+    overflow-y: auto;
+    height: 210px;
+}
+</style>
+
 <div id="formset-exercise-{{exercise.id}}" style="margin-top: 1em;">
 <div class="row">
     <div class="col-md-offset-2 col-md-10">
