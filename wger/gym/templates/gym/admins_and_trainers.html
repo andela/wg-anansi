@@ -36,8 +36,12 @@
                 {{current_user.index}}
             </td>
             <td>
-                {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-                <a href="{% url 'core:user:overview' current_user.obj.pk %}">{{current_user.obj}}</a> {% else %} {{current_user.obj}} {% endif %}
+                {% if current_user.index == 1 %}
+                {{ current_user.obj }}
+                {% elif perms.gym.manage_gym or perms.gym.manage_gyms %}
+                <a href="{% url 'core:user:overview' current_user.obj.pk %}">{{current_user.obj}}</a> 
+                {% else %} 
+                {{current_user.obj}} {% endif %}
             </td>
             <td>
                 {{current_user.obj.get_full_name}}
