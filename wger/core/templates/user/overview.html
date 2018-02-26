@@ -207,7 +207,7 @@
         </li>
         <li class="divider"></li>
         <li>
-            {% if current_user.is_active %}
+            {% if current_user.is_active and current_user.id != 1 %}
                 <a href="{% url 'core:user:deactivate' current_user.pk %}" >{% trans "Deactivate user"%}</a>
             {% else %}
                 <a href="{% url 'core:user:activate' current_user.pk %}">{% trans "Activate user"%}</a>
@@ -224,7 +224,9 @@
         {% endif %}
         {% endif %}
         <li>
+            {% if not current_user.id == 1 %}
             <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
+            {% endif %}
         </li>
     </ul>
 </div>

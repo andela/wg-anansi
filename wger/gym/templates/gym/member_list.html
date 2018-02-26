@@ -11,13 +11,13 @@
 <div class="tab-content" style="margin-top: 20px">
     <div id="admins_and_trainers" class="tab-pane fade in active">{% include 'gym/admins_and_trainers.html' %}</div>
 
-    <div id="admins_and_trainers">{% include 'gym/admins_and_trainers.html' %}</div>
+    <div id="inactive_trainers" class="tab-pane fade">{% include 'gym/inactive_trainers.html' %}</div>
 
-    <div id="all_trainees">{% include 'gym/partial_user_list.html' %}</div>
+    <div id="all_trainees"  class="tab-pane fade">{% include 'gym/partial_user_list.html' %}</div>
 
-    <div id="active_trainees">{% include 'gym/active_user_list.html' %}</div>
+    <div id="active_trainees"  class="tab-pane fade">{% include 'gym/active_user_list.html' %}</div>
 
-    <div id="inactive_trainees">{% include 'gym/inactive_user_list.html' %}</div>
+    <div id="inactive_trainees" class="tab-pane fade">{% include 'gym/inactive_user_list.html' %}</div>
 </div>
 
 {% endif %} {% endblock %} {% block sidebar %} {# #} {# Gym details #} {# #} {% if perms.gym.change_gym %}
