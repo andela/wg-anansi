@@ -19,23 +19,45 @@ import logging
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import (Group, User)
+from django.contrib.auth.models import (
+    Group,
+    User
+)
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.http.response import (HttpResponseForbidden, HttpResponse,
-                                  HttpResponseRedirect)
+from django.http.response import (
+    HttpResponseForbidden,
+    HttpResponse,
+    HttpResponseRedirect
+)
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-from django.views.generic import (ListView, DeleteView, CreateView, UpdateView)
+from django.views.generic import (
+    ListView,
+    DeleteView,
+    CreateView,
+    UpdateView
+)
 
 from wger.gym.forms import GymUserAddForm, GymUserPermisssionForm
-from wger.gym.helpers import (get_user_last_activity, is_any_gym_admin,
-                              get_permission_list)
-from wger.gym.models import (Gym, GymAdminConfig, GymUserConfig)
+from wger.gym.helpers import (
+    get_user_last_activity,
+    is_any_gym_admin,
+    get_permission_list
+)
+from wger.gym.models import (
+    Gym,
+    GymAdminConfig,
+    GymUserConfig
+)
 from wger.config.models import GymConfig as GlobalGymConfig
-from wger.utils.generic_views import (WgerFormMixin, WgerDeleteMixin,
-                                      WgerMultiplePermissionRequiredMixin)
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin,
+    WgerMultiplePermissionRequiredMixin)
 from wger.utils.helpers import password_generator
+
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +95,7 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
         '''
         if request.user.has_perm('gym.manage_gyms') \
             or ((request.user.has_perm('gym.manage_gym')
-                 or request.user.has_perm('gym.gym_trainer'))
+                or request.user.has_perm('gym.gym_trainer'))
                 and request.user.userprofile.gym_id == int(self.kwargs['pk'])):
             return super(GymUserListView, self).dispatch(
                 request, *args, **kwargs)
@@ -103,7 +125,7 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
                 'index': members_index
             })
             members_index += 1
-            
+
             if u.is_active:
                 out['active_members'].append({'obj': u,
                                        'last_log': u.usercache.last_activity,
@@ -257,7 +279,8 @@ def reset_user_password(request, user_pk):
     user.set_password(password)
     user.save()
 
-    context = {'mod_user': user, 'password': password}
+    context = {'mod_user': user,
+               'password': password}
     return render(request, 'gym/reset_user_password.html', context)
 
 
@@ -330,17 +353,17 @@ def gym_permissions_user_edit(request, user_pk):
     context = {}
     context['title'] = member.get_full_name()
     context['form'] = form
-    context['form_action'] = reverse(
-        'gym:gym:edit-user-permission', kwargs={'user_pk': member.pk})
-    context['extend_template'] = 'base_empty.html' if request.is_ajax(
-    ) else 'base.html'
+    context['form_action'] = reverse('gym:gym:edit-user-permission', kwargs={'user_pk': member.pk})
+    context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     context['submit_text'] = 'Save'
 
     return render(request, 'form.html', context)
 
 
-class GymAddUserView(WgerFormMixin, LoginRequiredMixin,
-                     WgerMultiplePermissionRequiredMixin, CreateView):
+class GymAddUserView(WgerFormMixin,
+                     LoginRequiredMixin,
+                     WgerMultiplePermissionRequiredMixin,
+                     CreateView):
     '''
     View to add a user to a new gym
     '''
@@ -392,7 +415,8 @@ class GymAddUserView(WgerFormMixin, LoginRequiredMixin,
         gym = Gym.objects.get(pk=self.kwargs['gym_pk'])
         password = password_generator()
         user = User.objects.create_user(form.cleaned_data['username'],
-                                        form.cleaned_data['email'], password)
+                                        form.cleaned_data['email'],
+                                        password)
         user.first_name = form.cleaned_data['first_name']
         user.last_name = form.cleaned_data['last_name']
         form.instance = user
@@ -433,8 +457,8 @@ class GymAddUserView(WgerFormMixin, LoginRequiredMixin,
         Send some additional data to the template
         '''
         context = super(GymAddUserView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse(
-            'gym:gym:add-user', kwargs={'gym_pk': self.kwargs['gym_pk']})
+        context['form_action'] = reverse('gym:gym:add-user',
+                                         kwargs={'gym_pk': self.kwargs['gym_pk']})
         return context
 
 
@@ -480,7 +504,13 @@ class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin,
     '''
 
     model = Gym
-    fields = ('name', 'phone', 'email', 'owner', 'zip_code', 'city', 'street')
+    fields = ('name',
+              'phone',
+              'email',
+              'owner',
+              'zip_code',
+              'city',
+              'street')
     success_url = reverse_lazy('gym:gym:list')
     permission_required = 'gym.delete_gym'
 
@@ -492,4 +522,63 @@ class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin,
         context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse(
             'gym:gym:delete', kwargs={'pk': self.kwargs['pk']})
+        return context
+
+class CompareMembers(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, ListView):
+    '''
+    Overview of all users for a specific gym
+    '''
+    model = User
+    permission_required = ('gym.manage_gym', 'gym.gym_trainer', 'gym.manage_gyms')
+    template_name = 'gym/compare_members.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only managers and trainers for this gym can access the members
+        '''
+        if request.user.has_perm('gym.manage_gyms') \
+            or ((request.user.has_perm('gym.manage_gym')
+                or request.user.has_perm('gym.gym_trainer'))
+                and request.user.userprofile.gym_id == int(self.kwargs['pk'])):
+            return super(CompareMembers, self).dispatch(request, *args, **kwargs)
+        return HttpResponseForbidden()
+
+    def get_queryset(self):
+        '''
+        Return a list with the users, not really a queryset.
+        '''
+        out = {'admins': [],
+               'members': []}
+
+        for u in Gym.objects.get_members(self.kwargs['pk']).select_related('usercache'):
+            profile_json = json.loads('{"sleep_hours": "' + str(u.userprofile.sleep_hours)+'",' + \
+                                        '"work_hours": "' + str(u.userprofile.work_hours) + '",' + \
+                                        '"sport_hours": "' + str(u.userprofile.sport_hours) + '",' + \
+                                        '"freetime_hours": "' + str(u.userprofile.freetime_hours) + '",' + \
+                                        '"workout_duration": "' + str(u.userprofile.gender) + '",' + \
+                                        '"gender": "' + str(u.userprofile.workout_duration) + '",' + \
+                                        '"username": "' + str(u.username)+'"' + \
+                                        '}')
+
+            out['members'].append({'obj': u,
+                                   'last_log': u.usercache.last_activity,
+                                   'profile_json': profile_json})
+
+        # admins list
+        for u in Gym.objects.get_admins(self.kwargs['pk']):
+            out['admins'].append({'obj': u,
+                                  'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
+                                            'manage_gyms': u.has_perm('gym.manage_gyms'),
+                                            'gym_trainer': u.has_perm('gym.gym_trainer'),
+                                            'any_admin': is_any_gym_admin(u)}
+                                  })
+        return out
+
+    def get_context_data(self, **kwargs):
+        '''
+        Pass other info to the template
+        '''
+        context = super(CompareMembers, self).get_context_data(**kwargs)
+        context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
+        context['users'] = context['object_list']['members']
         return context

@@ -1,8 +1,8 @@
 {% load i18n staticfiles wger_extras %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/datatables/media/css/dataTables.bootstrap.min.css' %}">
-<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}" ></script>
+<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}" ></script>
 <script>
     $(document).ready(function() {
         /* Make table sortable */
@@ -47,23 +47,30 @@
                 {{current_user.obj.get_full_name}}
             </td>
 
-            {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-            <td>
-                {% if current_user.perms.gym_trainer %}
-                <span class="label label-primary">{% trans "Trainer" %}</span> {% endif %} {% if current_user.perms.manage_gym %}
-                <span class="label label-primary">{% trans "Gym manager" %}</span> {% endif %} {% if current_user.perms.manage_gyms %}
-                <span class="label label-primary">{% trans "General manager" %}</span> {% endif %}
+    {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+    <td>
+        {% if current_user.perms.gym_trainer %}
+            <span class="label label-primary">{% trans "Trainer" %}</span>
+        {% endif %}
 
-                <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-default btn-xs wger-modal-dialog pull-right">
-                    <span class="{% fa_class 'cog' %}"></span>
-                </a>
-            </td>
-            {% endif %}
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="4">{% trans "This gym has no administrators or trainers" %}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+        {% if current_user.perms.manage_gym %}
+            <span class="label label-primary">{% trans "Gym manager" %}</span>
+        {% endif %}
+
+        {% if current_user.perms.manage_gyms %}
+            <span class="label label-primary">{% trans "General manager" %}</span>
+        {% endif %}
+
+        <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-default btn-xs wger-modal-dialog pull-right">
+            <span class="{% fa_class 'cog' %}"></span>
+        </a>
+    </td>
+    {% endif %}
+</tr>
+{% empty %}
+<tr>
+    <td colspan="4">{% trans "This gym has no administrators or trainers" %}</td>
+</tr>
+{% endfor %}
+</tbody>
 </table>

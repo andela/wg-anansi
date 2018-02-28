@@ -50,7 +50,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/components-font-awesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/components-font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
@@ -73,6 +73,9 @@
     {% endcompress %}
 
     {% block header %}{% endblock %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 
     <script>
     $(document).ready(function() {
