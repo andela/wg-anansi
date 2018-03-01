@@ -14,10 +14,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import os
+import csv
 import logging
 import uuid
 import datetime
 
+from django.utils.encoding import smart_str
+from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.template.context_processors import csrf
@@ -408,3 +412,44 @@ def timer(request, day_pk):
     context['weight_units'] = WeightUnit.objects.all()
     context['repetition_units'] = RepetitionUnit.objects.all()
     return render(request, 'workout/timer.html', context)
+
+
+@login_required
+def export_workouts(request, pk):
+    '''
+    exports a users workouts to csv so they can share them 
+    '''
+    if request.user.is_anonymous():
+        return HttpResponseForbidden()
+    workouts = get_object_or_404(Workout, pk=pk, user=request.user)
+
+    field_names = ['Exercises', 'Reps']
+    with open('/tmp/workouts.csv', 'w', newline='') as csvfile:
+        for workout in workouts.canonical_representation['day_list']:
+            days = workout['days_of_week']['text'].split(',')
+            name = "Workout name: "+ str(workout['obj'])
+            exercises_data = [ [a['obj'], a['setting_text']] for a in  workout['set_list'][0]['exercise_list']]
+
+        writer = csv.DictWriter(csvfile, fieldnames=field_names)
+        write_outfile = csv.writer(csvfile)
+        write_outfile.writerow([name])
+        write_outfile.writerow(["Workout days: "+", ".join(days)])
+        writer.writeheader()
+
+        for exercise in exercises_data:
+            writer.writerow({
+                'Exercises': exercise[0].name,
+                'Reps':exercise[1]
+            })
+    fp = open('/tmp/workouts.csv')
+    
+    response = HttpResponse(
+        fp.read(), content_type='application/force-download'
+    )
+    fp.close()
+    os.rename('/tmp/workouts.csv', '/tmp/{name}.csv'.format(name=name))
+   
+    response['Content-Disposition'] = 'attachment; filename={}'.format(
+        smart_str('workouts.csv')
+    )
+    return response

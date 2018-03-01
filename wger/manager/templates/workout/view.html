@@ -144,6 +144,28 @@ an appointment for each training day with the appropriate exercises.{% endblockt
     </div>
 </div>
 
+<div class="modal fade" id="export_workout">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{% trans "Export Workout" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <P>Clicking the download button will export this
+                    workout as a csv file and download it so you can share with your friends</P>
+                    <a href="{% url 'manager:workout:export_workouts' workout.id %}" class="btn btn-block btn-default">
+                       {% trans "Download" %}
+                    </a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                </div>
+            </div>
+        </div>
+</div>
+
 <div class="modal fade" id="download-pdf-popup">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -223,6 +245,12 @@ an appointment for each training day with the appropriate exercises.{% endblockt
             <a data-toggle="modal" data-target="#download-pdf-popup">
                 <span class="{% fa_class 'download' %}"></span>
                 {% trans "Download as PDF" %}
+            </a>
+        </li>
+        <li>
+             <a data-toggle="modal" data-target="#export_workout">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Export Workout" %}
             </a>
         </li>
         <li>
