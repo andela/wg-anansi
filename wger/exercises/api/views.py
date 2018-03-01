@@ -24,11 +24,13 @@ from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 
 from django.utils.translation import ugettext as _
+from django.shortcuts import get_object_or_404
 
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
     MuscleSerializer, ExerciseSerializer, ExerciseImageSerializer,
-    ExerciseCategorySerializer, EquipmentSerializer, ExerciseCommentSerializer)
+    ExerciseCategorySerializer, EquipmentSerializer, ExerciseCommentSerializer,
+    SingleExerciseDetailsSerializer)
 from wger.exercises.models import (Exercise, Equipment, ExerciseCategory,
                                    ExerciseImage, ExerciseComment, Muscle)
 from wger.utils.language import load_item_languages, load_language
@@ -56,6 +58,17 @@ class ExerciseViewSet(viewsets.ModelViewSet):
         # Todo is it right to call set author after save?
         obj.set_author(self.request)
         obj.save()
+
+
+class SingleExerciseDetailsView(viewsets.ReadOnlyModelViewSet):
+    '''
+    API endpoint for getting details of a single exercise
+    '''
+    serializer_class = SingleExerciseDetailsSerializer
+
+    def get_queryset(self):
+        queryset = Exercise.objects.all()
+        return queryset
 
 
 @api_view(['GET'])

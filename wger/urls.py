@@ -143,6 +143,10 @@ router.register(
     base_name='exercisecomment')
 router.register(
     r'muscle', exercises_api_views.MuscleViewSet, base_name='muscle')
+router.register(
+    r'exercisedetails',
+    exercises_api_views.SingleExerciseDetailsView,
+    base_name='exercisedetails')
 
 # Nutrition app
 router.register(
@@ -215,6 +219,9 @@ urlpatterns += [
     url(r'^api/v2/exercise/search/$',
         exercises_api_views.search,
         name='exercise-search'),
+    url(r'^exercisedetails/(?P<id>\d+)/$',
+        exercises_api_views.SingleExerciseDetailsView,
+        name='exercisedetails'),
     url(r'^api/v2/ingredient/search/$',
         nutrition_api_views.search,
         name='ingredient-search'),
