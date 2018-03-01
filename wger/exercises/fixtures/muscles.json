@@ -40,6 +40,14 @@
         }
     }, 
     {
+        "pk": 19, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": true, 
+            "name": "Forearms"
+        }
+    }, 
+    {
         "pk": 7, 
         "model": "exercises.muscle", 
         "fields": {
@@ -53,6 +61,14 @@
         "fields": {
             "is_front": false, 
             "name": "Gluteus maximus"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Lateral deltoid"
         }
     }, 
     {
@@ -77,6 +93,14 @@
         "fields": {
             "is_front": true, 
             "name": "Pectoralis major"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "exercises.muscle", 
+        "fields": {
+            "is_front": false, 
+            "name": "Posterious deltoid"
         }
     }, 
     {
