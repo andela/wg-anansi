@@ -1,8 +1,8 @@
 {% load i18n staticfiles %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/datatables/media/css/dataTables.bootstrap.min.css' %}">
-<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}" ></script>
+<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}" ></script>
 <script>
     $(document).ready(function() {
         /* Make table sortable */
@@ -46,10 +46,13 @@
                 {% if current_user.obj.userprofile.gym_id %}
                 <a href="{{ current_user.obj.userprofile.gym.get_absolute_url }}">
             {{ current_user.obj.userprofile.gym }}
-            </a> {% else %} -/- {% endif %}
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </tbody>
+            </a>
+        {% else %}
+            -/-
+        {% endif %}
+    </td>
+    {% endif %}
+</tr>
+{% endfor %}
+</tbody>
 </table>

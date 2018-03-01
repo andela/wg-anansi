@@ -50,7 +50,10 @@
         <td>{% trans "Email" %}</td>
         <td>
             {% if gym.email %}
-            <a href="mailto:{{gym.email}}">{{gym.email}}</a> {% else %} -/- {% endif %}
+                <a href="mailto:{{gym.email}}">{{gym.email}}</a>
+            {% else %}
+                -/-
+            {% endif %}
         </td>
     </tr>
     <tr>
@@ -60,7 +63,8 @@
     <tr>
         <td>{% trans "Address" %}</td>
         <td>
-            {{gym.zip_code}} {{gym.city}}<br> {{gym.street}}
+            {{gym.zip_code}} {{gym.city}}<br>
+            {{gym.street}}
         </td>
     </tr>
     <tr>
@@ -70,7 +74,10 @@
 </table>
 
 
-{# #} {# Gym configuration #} {# #} {% if perms.gym.change_gymconfig %}
+{#                   #}
+{# Gym configuration #}
+{#                   #}
+{% if perms.gym.change_gymconfig %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -94,7 +101,10 @@
 
 
 
-{# #} {# Admin configuration #} {# #} {% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
+{#                     #}
+{# Admin configuration #}
+{#                     #}
+{% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -112,14 +122,24 @@
         <td>{% trans "Overview of inactive members" %}</td>
         <td style="text-align: right;">
             {% if user.gymadminconfig.overview_inactive %}
-            <span class="{% fa_class 'check' %}"></span> {% else %}
-            <span class="{% fa_class 'times' %}"></span> {% endif %}
+                <span class="{% fa_class 'check' %}"></span>
+            {% else %}
+                <span class="{% fa_class 'times' %}"></span>
+            {% endif %}
         </td>
     </tr>
 </table>
-{% endif %} {# #} {# Contract configuration #} {# #} {% if perms.gym.change_contracttype or perms.gym.change_contractoption %}
-<h4>{% trans "Contracts" %}</h4>
-{% endif %} {% if perms.gym.change_contracttype %}
+{% endif %}
+
+
+
+{#                        #}
+{# Contract configuration #}
+{#                        #}
+{% if perms.gym.change_contracttype or perms.gym.change_contractoption %}
+    <h4>{% trans "Contracts" %}</h4>
+{% endif %}
+{% if perms.gym.change_contracttype %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -153,7 +173,10 @@
     </tr>
     {% endfor %}
 </table>
-{% endif %} {% if perms.gym.change_contractoption %}
+{% endif %}
+
+
+{% if perms.gym.change_contractoption %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -187,7 +210,14 @@
     </tr>
     {% endfor %}
 </table>
-{% endif %} {# #} {# Email lists #} {# #} {% if perms.email.change_log %}
+{% endif %}
+
+
+
+{#             #}
+{# Email lists #}
+{#             #}
+{% if perms.email.change_log %}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
@@ -221,7 +251,28 @@
     </tr>
     {% endfor %}
 </table>
-{% endif %} {% endblock %} {# #} {# Options #} {# #} {% block options %} {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-<a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add member" %}
-    </a> {% endif %} {% endblock %}
+{% endif %}
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+<div class="row">
+  <div class="col-xs-6">
+  <a href="{% url 'gym:gym:compare-members' gym.pk %}" class="btn btn-primary btn-sm">
+      {% trans "Compare members" %}
+  </a>
+  </div>
+
+  {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+    <div class="col-xs-6">
+      <a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success btn-sm wger-modal-dialog">
+          {% trans "Add member" %}
+      </a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
