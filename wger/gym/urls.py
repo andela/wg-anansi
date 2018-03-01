@@ -42,6 +42,9 @@ patterns_gym = [
     url(r'^user/(?P<user_pk>\d+)/reset-user-password$',
         gym.reset_user_password,
         name='reset-user-password'),
+    url(r'^(?P<pk>\d+)/compare-members$',
+        gym.CompareMembers.as_view(),
+        name='compare-members'),
 ]
 
 # 'sub patterns' for gym config

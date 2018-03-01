@@ -17,6 +17,7 @@
 import logging
 import csv
 import datetime
+from dateutil.relativedelta import relativedelta
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -42,6 +43,8 @@ from wger.weight.models import WeightEntry
 from wger.weight import helpers
 from wger.utils.helpers import check_access
 from wger.utils.generic_views import WgerFormMixin
+
+from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -187,6 +190,38 @@ def get_weight_data(request, username=None):
     # Return the results to the client
     return Response(chart_data)
 
+@api_view(['GET'])
+def get_weight_data_admin(request, username=None):
+    '''
+    Process the data to pass it to the JS libraries to generate an SVG image
+    '''
+    user = User.objects.filter(username=username)
+
+    year_before = datetime.datetime.now() - relativedelta(years=1)
+    now = datetime.datetime.now()
+
+    date_min = str(year_before.year) + '-' + str(year_before.month) + '-' + str(year_before.day)
+    date_max = str(now.year) + '-' + str(now.month) + '-' + str(now.day)
+
+    weights = WeightEntry.objects.filter(user=user,
+                                            date__range=(date_min, date_max))
+
+    chart_data = []
+    months = {}
+    for i in weights:
+        if i.date.year in months:
+            if i.date.month not in months[i.date.year]:
+                chart_data.append({'date': i.date,
+                                   'weight': i.weight})
+                months[i.date.year].append(i.date.month)
+
+        else:
+            chart_data.append({'date': i.date,
+                               'weight': i.weight})
+            months[i.date.year] = [i.date.month]
+
+    # Return the results to the client
+    return Response(chart_data)
 
 class WeightCsvImportFormPreview(FormPreview):
     preview_template = 'import_csv_preview.html'
