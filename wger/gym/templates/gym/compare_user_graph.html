@@ -1,0 +1,175 @@
+
+<hr />
+<canvas class="top" id="myChart" width="400" height="400"></canvas>
+
+<hr />
+<canvas class="bottom" id="weightCanvas" width="400" height="400"></canvas>
+
+<script>
+
+$(window).load(setUserProfile())
+
+function setUserProfile() {
+
+  var e = document.getElementById("user1");
+  var user1Profile = e.options[e.selectedIndex].value;
+  user1Profile = user1Profile.replace(new RegExp("'", 'g'), '"');
+
+  var user1Profile = JSON.parse(user1Profile);
+
+  var e = document.getElementById("user2");
+  var user2Profile = e.options[e.selectedIndex].value;
+  user2Profile = user2Profile.replace(new RegExp("'", 'g'), '"');
+
+  var user2Profile = JSON.parse(user2Profile);
+
+  changeGraph(user1Profile, user2Profile);
+
+  var weight1 = getWeight(user1Profile.username);
+  var weight2 = getWeight(user2Profile.username);
+  weightGraph(weight1, weight2, user1Profile.username, user2Profile.username);
+
+}
+
+function getWeight (username) {
+  var weightList = new Array();
+
+  $.ajax({
+      type: 'GET',
+      url: '/weight/api/get_weight_data_admin/'+username,
+      dataType: 'json',
+      async:false,
+      success: function (data) {
+        var arrayLength = data.length;
+        for (var i = 0; i < arrayLength; i++) {
+          weightList.push(data[i]["weight"]);
+        }
+      }
+    });
+
+  return weightList
+}
+
+function getMonths() {
+  var todayDate = new Date();
+  var thisMonth = todayDate.getMonth()+1;
+
+  var year = {1: "January", 2: "February", 3: "March", 4: "April",
+            5: "May", 6: "June", 7: "July", 8: "August", 9: "September",
+            10: "October", 11: "November", 12: "December"}
+
+  var lastYear = []
+
+  for(var i = 0; i < 12; i++) {
+    lastYear.push(year[thisMonth])
+
+    thisMonth = (thisMonth-1);
+    if (thisMonth === 0) {
+      thisMonth = 12;
+    }
+  }
+
+  return lastYear.reverse()
+}
+
+function lineChartData(weight1, weight2, username1, username2) {
+
+  var data = {
+      labels: getMonths(),
+      datasets: [{
+          label: username1,
+          borderColor: 'rgba(39, 151, 221, 1)',
+          backgroundColor: 'rgba(39, 151, 221, 1)',
+          fill: false,
+          data: weight1,
+          yAxisID: "y-axis-1",
+      }, {
+          label: username2,
+          borderColor: 'rgba(172, 70, 156, 1)',
+          backgroundColor: 'rgba(172, 70, 156, 1)',
+          fill: false,
+          data: weight2,
+          yAxisID: "y-axis-2"
+      }]
+  };
+
+  return data
+}
+
+ function weightGraph(weight1, weight2, username1, username2) {
+    if (window.myLine != undefined) {
+      window.myLine.destroy();
+    }
+    var ctx = document.getElementById("weightCanvas").getContext("2d");
+    window.myLine = Chart.Line(ctx, {
+        data: lineChartData(weight1, weight2, username1, username2),
+        options: {
+            responsive: true,
+            stacked: false,
+            title:{
+                display: true,
+                text:'Weight Compare Graph - Past 1 Year'
+            },
+            scales: {
+                yAxes: [{
+                    type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: "left",
+                    id: "y-axis-1",
+                }, {
+                    type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: "right",
+                    id: "y-axis-2",
+
+                    // grid line settings
+                    gridLines: {
+                        drawOnChartArea: false, // only want the grid lines for one axis to show up
+                    },
+                }],
+            }
+        }
+    });
+};
+
+
+function changeGraph(u1, u2) {
+  if (myChart != undefined) {
+    myChart.destroy();
+  }
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ["Sleep Hours", "Work Hours", "Sport Hours", "Free Time Hours", "Workout Duration"],
+          datasets: [{
+              label: u1.username,
+              data: [u1.sleep_hours, u1.work_hours, u1.sport_hours, u1.freetime_hours, u1.workout_duration],
+              backgroundColor: 'rgba(39, 151, 221, 0.8)',
+              borderColor: 'rgba(39, 151, 221, 1)',
+              borderWidth: 1
+          },
+          {
+              label: u2.username,
+              data: [u2.sleep_hours, u2.work_hours, u2.sport_hours, u2.freetime_hours, u2.workout_duration],
+              backgroundColor: 'rgba(172, 70, 156, 0.8)',
+              borderColor: 'rgba(172, 70, 156, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+        title:{
+            display: true,
+            text:'How The User Spends Time'
+        },
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+}
+</script>

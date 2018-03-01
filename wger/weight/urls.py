@@ -39,6 +39,11 @@ urlpatterns = [
         r'^api/get_weight_data/(?P<username>[\w.@+-]+)$',  # JS
         views.get_weight_data,
         name='weight-data'),
+
+    url(r'^api/get_weight_data_admin/(?P<username>[\w.@+-]+)$', # JS
+        views.get_weight_data_admin,
+        name='weight-data_admin'),
+    
     url(
         r'^api/get_weight_data/$',  # JS
         views.get_weight_data,

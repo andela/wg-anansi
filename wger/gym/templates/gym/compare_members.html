@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+
+{% block title %}{{gym}} Compare Users{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+        {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
+    {% endif %}
+{% endblock %}
+
+{% block header %} 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+  <div id="selectUsers" class="row">
+
+    <div class="col-xs-3 col-md-offset-2">
+      <select class="form-control" id="user1" onchange="setUserProfile()">
+        {% for current_user in users %}
+          <option value = '{{ current_user.profile_json }}' >{{ current_user.obj.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-xs-3">
+      <select class="form-control" id="user2" onchange="setUserProfile()">
+        {% for current_user in users %}
+          <option value='{{ current_user.profile_json }}'>{{ current_user.obj.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+  </div>
+
+  {% include 'gym/compare_user_graph.html' %}
+
+{% endblock %}

@@ -37,6 +37,8 @@ from wger.utils.generic_views import (WgerFormMixin, WgerDeleteMixin,
                                       WgerMultiplePermissionRequiredMixin)
 from wger.utils.helpers import password_generator
 
+import json
+
 logger = logging.getLogger(__name__)
 
 
@@ -492,4 +494,63 @@ class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin,
         context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse(
             'gym:gym:delete', kwargs={'pk': self.kwargs['pk']})
+        return context
+
+class CompareMembers(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, ListView):
+    '''
+    Overview of all users for a specific gym
+    '''
+    model = User
+    permission_required = ('gym.manage_gym', 'gym.gym_trainer', 'gym.manage_gyms')
+    template_name = 'gym/compare_members.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Only managers and trainers for this gym can access the members
+        '''
+        if request.user.has_perm('gym.manage_gyms') \
+            or ((request.user.has_perm('gym.manage_gym')
+                or request.user.has_perm('gym.gym_trainer'))
+                and request.user.userprofile.gym_id == int(self.kwargs['pk'])):
+            return super(CompareMembers, self).dispatch(request, *args, **kwargs)
+        return HttpResponseForbidden()
+
+    def get_queryset(self):
+        '''
+        Return a list with the users, not really a queryset.
+        '''
+        out = {'admins': [],
+               'members': []}
+
+        for u in Gym.objects.get_members(self.kwargs['pk']).select_related('usercache'):
+            profile_json = json.loads('{"sleep_hours": "' + str(u.userprofile.sleep_hours)+'",' + \
+                                        '"work_hours": "' + str(u.userprofile.work_hours) + '",' + \
+                                        '"sport_hours": "' + str(u.userprofile.sport_hours) + '",' + \
+                                        '"freetime_hours": "' + str(u.userprofile.freetime_hours) + '",' + \
+                                        '"workout_duration": "' + str(u.userprofile.gender) + '",' + \
+                                        '"gender": "' + str(u.userprofile.workout_duration) + '",' + \
+                                        '"username": "' + str(u.username)+'"' + \
+                                        '}')
+
+            out['members'].append({'obj': u,
+                                   'last_log': u.usercache.last_activity,
+                                   'profile_json': profile_json})
+
+        # admins list
+        for u in Gym.objects.get_admins(self.kwargs['pk']):
+            out['admins'].append({'obj': u,
+                                  'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
+                                            'manage_gyms': u.has_perm('gym.manage_gyms'),
+                                            'gym_trainer': u.has_perm('gym.gym_trainer'),
+                                            'any_admin': is_any_gym_admin(u)}
+                                  })
+        return out
+
+    def get_context_data(self, **kwargs):
+        '''
+        Pass other info to the template
+        '''
+        context = super(CompareMembers, self).get_context_data(**kwargs)
+        context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
+        context['users'] = context['object_list']['members']
         return context
