@@ -3090,7 +3090,9 @@
             "license_author": "wger.de",
             "status": "2",
             "language": 2,
-            "muscles_secondary": [],
+            "muscles_secondary": [
+                2
+            ],
             "description": "<p>.</p>",
             "equipment": [
                 3
@@ -3099,7 +3101,7 @@
             "category": 13,
             "uuid": "5345766a-c092-457a-aa21-8ee6ffa855d4",
             "muscles": [
-                2
+                17
             ],
             "license": 1,
             "name": "Lateral raises"
@@ -4582,7 +4584,10 @@
             "license_author": "trzr23",
             "status": "2",
             "language": 2,
-            "muscles_secondary": [],
+            "muscles_secondary": [
+                17,
+                18
+            ],
             "description": "<p>Very common shoulder exercise.</p>\n<p>\u00a0</p>\n<p>As shown here:\u00a0https://www.youtube.com/watch?v=vj2w851ZHRM</p>",
             "equipment": [
                 3
@@ -4590,7 +4595,9 @@
             "creation_date": "2014-03-09",
             "category": 13,
             "uuid": "53ca25b3-61d9-4f72-bfdb-492b83484ff5",
-            "muscles": [],
+            "muscles": [
+                1
+            ],
             "license": 1,
             "name": "Arnold Shoulder Press"
         },
@@ -7505,7 +7512,9 @@
             "creation_date": "2016-02-15",
             "category": 8,
             "uuid": "22eb7cf6-bf6c-42c3-a1c8-85c2fc2ed931",
-            "muscles": [],
+            "muscles": [
+                19
+            ],
             "license": 2,
             "name": "Standing Rope Forearm"
         },
@@ -7578,6 +7587,177 @@
             ],
             "license": 2,
             "name": "Seated Triceps Press"
+        },
+        "model": "exercises.exercise"
+    },
+    {
+        "pk": 387,
+        "fields": {
+            "license_author": "wger.anansi",
+            "status": "2",
+            "language": 2,
+            "muscles_secondary": [],
+            "description": "<p>Hold a barbell with both hands and your palms facing down; hands spaced about shoulder width. This will be your starting position.</p><br/><p>Alternating between each of your hands, perform the movement by extending the wrist as though you were rolling up a newspaper. Continue alternating back and forth until failure.</p><br/><p>Reverse the motion by flexing the wrist, rolling the opposite direction. Continue the alternating motion until failure.</p>",
+            "equipment": [
+                1
+            ],
+            "creation_date": "2018-02-27",
+            "category": 8,
+            "uuid": "d0e9927c-833c-4690-9ada-5eaad0f1e97c",
+            "muscles": [
+                19
+            ],
+            "license": 1,
+            "name": "Wrist Rotations with Straight Bar"
+        },
+        "model": "exercises.exercise"
+    },
+    {
+        "pk": 388,
+        "fields": {
+            "license_author": "wger.anansi",
+            "status": "2",
+            "language": 2,
+            "muscles_secondary": [],
+            "description": "<p>Watch this video to see how to proprely perform <a href='https://www.bodybuilding.com/exercises/finger-curls'>this</a> exercise.</p>",
+            "equipment": [
+                1
+            ],
+            "creation_date": "2018-02-27",
+            "category": 8,
+            "uuid": "0222ac11-4e70-4be0-bfac-47dee2cbf8c5",
+            "muscles": [
+                19
+            ],
+            "license": 1,
+            "name": "Finger Curls"
+        },
+        "model": "exercises.exercise"
+    },
+    {
+        "pk": 389,
+        "fields": {
+            "license_author": "wger.anansi",
+            "status": "2",
+            "language": 2,
+            "muscles_secondary": [],
+            "description": "<p>Watch this video to see how to proprely perform <a href='https://www.bodybuilding.com/exercises/seated-one-arm-dumbbell-palms-up-wrist-curl'>this</a> exercise.</p>",
+            "equipment": [
+                3
+            ],
+            "creation_date": "2018-02-28",
+            "category": 8,
+            "uuid": "2d6aa0a0-9e1b-4792-a615-e0461d21cf74",
+            "muscles": [
+                19
+            ],
+            "license": 1,
+            "name": "Seated One-Arm Dumbbell Palms-Up Wrist Curl"
+        },
+        "model": "exercises.exercise"
+    },
+    {
+        "pk": 390,
+        "fields": {
+            "license_author": "wger.anansi",
+            "status": "2",
+            "language": 2,
+            "muscles_secondary": [],
+            "description": "<ol><li>Standing upright, grasp the barbell behind you body at shoulder width apart, your palms should face backwards, and your arms should hang fully extended.</li><li>Acquire a firm grip on the bar and remove it from its stand.</li><li>Using your wrists alone, reverse-curl the weight upward, exhaling throughout the movement.</li><li>Slowly lower the weight as low as is comfortable (for fear of the weight slipping from one's fingers), inhaling throughout the movement.</li><li>Repeat.</li></ol>",
+            "equipment": [
+                3
+            ],
+            "creation_date": "2018-02-28",
+            "category": 8,
+            "uuid": "2e4dc3b5-2106-4324-b06a-5544275088c3",
+            "muscles": [
+                19
+            ],
+            "license": 1,
+            "name": "Behind-the-Back Wrist Curls"
+        },
+        "model": "exercises.exercise"
+    },
+    {
+        "pk": 391,
+        "fields": {
+            "license_author": "wger.anansi",
+            "status": "2",
+            "language": 2,
+            "muscles_secondary": [
+                3,
+                4,
+                5
+            ],
+            "description": "<p>To see how to proprely perform the exercise read <a href='https://chunkfitness.com/exercises/shoulder-exercises/front-deltoid-exercises/military-press-barbell'>this</a> post.</p>",
+            "equipment": [
+                1
+            ],
+            "creation_date": "2018-02-27",
+            "category": 13,
+            "uuid": "d0e9927c-833c-4690-9ada-5eaad0f1e97c",
+            "muscles": [
+                2,
+                17,
+                18
+            ],
+            "license": 1,
+            "name": "Military Press (Barbell)"
+        },
+        "model": "exercises.exercise"
+    },
+    {
+        "pk": 392,
+        "fields": {
+            "license_author": "wger.anansi",
+            "status": "2",
+            "language": 2,
+            "muscles_secondary": [
+                3,
+                4,
+                5,
+                9
+            ],
+            "description": "<p>To see how to proprely perform the exercise read <a href='https://chunkfitness.com/exercises/shoulder-exercises/front-deltoid-exercises/military-press-dumbell'>this</a> post.</p><br/><ol><li>Sit or stand being sure to keep the back straight and grasp the dumbbells. If seated, carefully rest them on the knees.</li><br/><li>From the seated position, if the weight is heavy, you may have to knee the weights into position.</li><br/><li>Move the weight to shoulder level with the palms facing forward.</li><br/><li>Press the weight vertically until the arms are extended and in line with the shoulders, exhaling throughout the movement.</li><br/><li>Slowly lower the weight to near the start position (horizontal with the floor), inhaling throughout the movement.</li><br/><li>Repeat.</li></ol>",
+            "equipment": [
+                3
+            ],
+            "creation_date": "2018-02-27",
+            "category": 13,
+            "uuid": "d7a5765b-24a1-4d68-9924-559980a58dd5",
+            "muscles": [
+                2,
+                17,
+                18
+            ],
+            "license": 1,
+            "name": "Military Press (Dumbbell)"
+        },
+        "model": "exercises.exercise"
+    },
+    {
+        "pk": 393,
+        "fields": {
+            "license_author": "wger.anansi",
+            "status": "2",
+            "language": 2,
+            "muscles_secondary": [
+                2,
+                17,
+                9
+            ],
+            "description": "<p>To see how to proprely perform the exercise read <a href='https://chunkfitness.com/exercises/shoulder-exercises/rear-deltoid-exercises/bent-over-cross-cable-laterals'>this</a> post.</p><br/><ol><li>Locate a cable machine that offers attachments on the left and right side of the body</li><br/><li>Secure the single-grip attachment to both sides of the cable machine then set the pulley to the lowest pin setting.</li><br/><li>Keeping the arms in front of the body, grab the attachment to the right of the body with the left hand.</li><br/><li>While still holding the attachment to the right of the body, move over and grab the attachment to the left of the body with the right hand. At this point, both hands should be crossed in front of the body</li><br/><li>Keeping a slight bend in the elbows, pull the attachments up and away from the body, inhaling throughout this motion.</li><br/><li>Once the hands reach head level, allow them to come back down and towards the body, exhaling throughout the motion.</li><br/><li>Repeat steps 7-8.</li></ol>",
+            "equipment": [
+                3
+            ],
+            "creation_date": "2018-02-27",
+            "category": 13,
+            "uuid": "aee506fd-02c4-436a-9cbd-b57c122424bf",
+            "muscles": [
+                18
+            ],
+            "license": 1,
+            "name": "Bent-Over Cross Cable Laterals"
         },
         "model": "exercises.exercise"
     },
