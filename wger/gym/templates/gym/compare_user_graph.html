@@ -7,10 +7,12 @@
 
 <script>
 
+var weight1;
+var weight2;
+
 $(window).load(setUserProfile())
 
 function setUserProfile() {
-
   var e = document.getElementById("user1");
   var user1Profile = e.options[e.selectedIndex].value;
   user1Profile = user1Profile.replace(new RegExp("'", 'g'), '"');
@@ -25,47 +27,163 @@ function setUserProfile() {
 
   changeGraph(user1Profile, user2Profile);
 
-  var weight1 = getWeight(user1Profile.username);
-  var weight2 = getWeight(user2Profile.username);
+  weight1 = getWeight(user1Profile.username);
+  weight2 = getWeight(user2Profile.username);
   weightGraph(weight1, weight2, user1Profile.username, user2Profile.username);
 
 }
 
+function monthToMonthNum (month) {
+  var year = {"January": 1, "February": 2, "March": 3, "April": 4,
+            "May": 5, "June": 6, "July": 7, "August": 8, "September": 9,
+            "October": 10, "November": 11, "December": 12}
+
+  return year[month]
+}
+
+function monthNumToMonth (monthNum) {
+  var year = {1: "January", 2: "February", 3: "March", 4: "April",
+            5: "May", 6: "June", 7: "July", 8: "August", 9: "September",
+            10: "October", 11: "November", 12: "December"}
+
+  return year[monthNum]
+}
+
+function getWeightPlots (weights) {
+  /**
+   * This function takes a list of dictionaries, which contain
+   * dates when the weight was entered and the weight it self.
+   * It returns a list of weights that can be used for plotting on
+   * the graph.
+   */
+  var past12Months = getDates();
+
+  var newWeights = [];
+
+  var y = 0;
+  newWeights = weights.reduce((result, weightData) => {
+    var weightDate = weightData['date'];
+    weightDate = weightDate.split('-');
+
+    weightMonthNum = parseInt(weightDate[1]);
+    weightYear = parseInt(weightDate[0]);
+
+    var date = past12Months[y];
+    date = date.split('-')
+    var monthNum = date[1]
+    var yearNum = date[0]
+
+    if (weightMonthNum > monthNum){
+      while(monthNum <= weightMonthNum){
+        result.push(weightData);
+        monthNum++;
+        y++
+      }
+    }
+    else if (weightMonthNum == monthNum) {
+      result.push(weightData)
+      y++;
+    }
+    else if (weightMonthNum < monthNum && yearNum < weightYear){
+      while(monthNum <= weightMonthNum || yearNum < weightYear){
+        result.push(weightData);
+        monthNum++;
+        y++
+
+        var date = past12Months[y];
+        date = date.split('-')
+        var monthNum = date[1]
+        var yearNum = date[0]
+      }
+    }
+
+    return result;
+  }, []);
+
+  var y = 0;
+  var weightList = newWeights.reduce((result, weightData) => {
+    var weightDate = weightData['date'];
+    weightDate = weightDate.split('-');
+
+    weightMonthNum = parseInt(weightDate[1]);
+    weightYear = parseInt(weightDate[0]);
+
+    var date = past12Months[y];
+    date = date.split('-')
+    var monthNum = date[1]
+    var yearNum = date[0]
+
+    if (weightMonthNum > monthNum){
+      result.push(0);
+    }
+    else if (weightMonthNum == monthNum) {
+      result.push(weightData['weight']);
+    }
+    else if (weightMonthNum < monthNum && yearNum < weightYear){
+      result.push(0);
+    }
+    y++;
+    return result;
+  }, []);
+
+  return weightList;
+}
+
 function getWeight (username) {
-  var weightList = new Array();
+  /**
+   * This function takes a username as a parameter,
+   * then it calls the API URL using the username
+   * so that it gets the weights of that particular
+   * user.
+   */
+  var weights;
 
   $.ajax({
       type: 'GET',
       url: '/weight/api/get_weight_data_admin/'+username,
       dataType: 'json',
-      async:false,
+      async: false,
       success: function (data) {
-        var arrayLength = data.length;
-        for (var i = 0; i < arrayLength; i++) {
-          weightList.push(data[i]["weight"]);
-        }
+        weights = data;
       }
     });
 
-  return weightList
+  return getWeightPlots(weights);
 }
 
 function getMonths() {
   var todayDate = new Date();
   var thisMonth = todayDate.getMonth()+1;
 
-  var year = {1: "January", 2: "February", 3: "March", 4: "April",
-            5: "May", 6: "June", 7: "July", 8: "August", 9: "September",
-            10: "October", 11: "November", 12: "December"}
-
   var lastYear = []
 
   for(var i = 0; i < 12; i++) {
-    lastYear.push(year[thisMonth])
+    lastYear.push(monthNumToMonth(thisMonth))
 
     thisMonth = (thisMonth-1);
     if (thisMonth === 0) {
       thisMonth = 12;
+    }
+  }
+
+  return lastYear.reverse()
+}
+
+function getDates() {
+  var todayDate = new Date();
+  var thisMonth = todayDate.getMonth()+1;
+  var thisYear = todayDate.getFullYear();
+
+  var lastYear = []
+
+  for(var i = 0; i < 12; i++) {
+    var thisDate = thisYear + '-' + thisMonth;
+    lastYear.push(thisDate)
+
+    thisMonth = (thisMonth-1);
+    if (thisMonth === 0) {
+      thisMonth = 12;
+      thisYear = thisYear-1;
     }
   }
 
