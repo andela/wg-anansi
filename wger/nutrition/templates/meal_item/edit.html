@@ -41,6 +41,10 @@ $(document).ready(function() {
             <div id="exercise_name"></div>
         </div>
     </div>
+    <!-- <div>
+        <input type="number" name="item-status" id="item-status" value="" class="hidden" />
+    </div> -->
+    {% render_form_field form.item_status %}
     {% render_form_field form.amount %}
     {% render_form_field form.weight_unit %}
     {% render_form_submit submit_text %}

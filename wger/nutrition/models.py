@@ -34,7 +34,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
 from django.conf import settings
 
-from django.db.models.signals import post_save, post_delete 
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 from wger.core.models import Language
@@ -121,7 +121,7 @@ class NutritionPlan(models.Model):
         '''
         Sums the nutritional info of all items in the plan
         '''
-        result = cache.get(cache_mapper.get_nutrition_plan_key(self.id)) 
+        result = cache.get(cache_mapper.get_nutrition_plan_key(self.id))
         if not result:
             use_metric = self.user.userprofile.use_metric
             unit = 'kg' if use_metric else 'lb'
@@ -626,7 +626,7 @@ class MealItem(models.Model):
     '''
     An item (component) of a meal
     '''
-
+    item_status = models.BooleanField(default=0, verbose_name=_('Status'))
     meal = models.ForeignKey(
         Meal, verbose_name=_('Nutrition plan'), editable=False)
     ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
