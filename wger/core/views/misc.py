@@ -15,9 +15,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 import logging
+import dateutil.parser
 
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -37,6 +38,7 @@ from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
 from wger.weight.helpers import get_last_entries
+from .fitbit import Fitbit
 
 logger = logging.getLogger(__name__)
 
@@ -141,6 +143,45 @@ def dashboard(request):
         template_data['nutritional_info'] = plan.get_nutritional_values()
 
     return render(request, 'index.html', template_data)
+
+@login_required
+def fitbitLogin(request):
+    """
+    Method redirects user to the fitbit authorization page
+    """
+    fitbit = Fitbit()
+    login_url = fitbit.ComposeAuthorizationUri()
+
+    return redirect(login_url)
+
+@login_required
+def fitbitFetch(request):
+    """
+    Method fetches weight data from fitbit
+    """
+
+    
+    code = request.GET.get('code')
+    fitbit = Fitbit()
+    
+    # exhange access_code for token
+    token = fitbit.RequestAccessToken(code)
+
+    try:
+        data = fitbit.GetWeight(token)
+        for log in data['body-weight']:
+            weight_entry = WeightEntry()
+            weight_entry.user = request.user
+            weight_entry.weight = log['value']
+            weight_entry.date = dateutil.parser.parse(log['dateTime'])
+
+            try:
+                weight_entry.save()
+            except Exception as e:
+                pass
+    except Exception as e:
+        return e
+    return HttpResponseRedirect(reverse('core:dashboard'))
 
 
 class ContactClassView(TemplateView):

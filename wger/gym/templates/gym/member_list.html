@@ -13,9 +13,9 @@
 
     <div id="inactive_trainers" class="tab-pane fade">{% include 'gym/inactive_trainers.html' %}</div>
 
-    <div id="all_trainees"  class="tab-pane fade">{% include 'gym/partial_user_list.html' %}</div>
+    <div id="all_trainees" class="tab-pane fade">{% include 'gym/partial_user_list.html' %}</div>
 
-    <div id="active_trainees"  class="tab-pane fade">{% include 'gym/active_user_list.html' %}</div>
+    <div id="active_trainees" class="tab-pane fade">{% include 'gym/active_user_list.html' %}</div>
 
     <div id="inactive_trainees" class="tab-pane fade">{% include 'gym/inactive_user_list.html' %}</div>
 </div>
@@ -221,25 +221,7 @@
     </tr>
     {% endfor %}
 </table>
-{% endif %} {% endblock %}
-
-{#         #}
-{# Options #}
-{#         #}
-{% block options %}
-    <div class="row">
-        <div class="col-xs-6">
-        <a href="{% url 'gym:gym:compare-members' gym.pk %}" class="btn btn-primary btn-sm">
-            {% trans "Compare members" %}
-        </a>
-        </div>
-
-        {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
-        <div class="col-xs-6">
-            <a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success btn-sm wger-modal-dialog">
-                {% trans "Add member" %}
-            </a>
-        </div>
-        {% endif %}
-    </div>
-{% endblock %}
+{% endif %} {% endblock %} {# #} {# Options #} {# #} {% block options %} {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
+<a href="{% url 'gym:gym:add-user' gym.pk %}" class="btn btn-success btn-sm wger-modal-dialog">
+        {% trans "Add member" %}
+    </a> {% endif %} {% endblock %}
