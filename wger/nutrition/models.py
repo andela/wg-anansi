@@ -626,7 +626,7 @@ class MealItem(models.Model):
     '''
     An item (component) of a meal
     '''
-    item_status = models.BooleanField(default=0, verbose_name=_('Status'))
+    item_consumed = models.BooleanField(default=0, verbose_name=_('Status'))
     meal = models.ForeignKey(
         Meal, verbose_name=_('Nutrition plan'), editable=False)
     ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
