@@ -26,7 +26,22 @@
     </script>
 {% endblock %}
 
-{% block title %}{% trans "Ingredient overview" %}{% endblock %}
+{% block title %}
+    {% trans "Ingredient overview" %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
+            {% trans "Select language" %} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href={% url 'nutrition:ingredient:list' %}>None</li>
+            {% for short_name, language in languages %}
+            <li>
+                <a href={% url 'nutrition:ingredient:list' %}?filter_lang={{ short_name }}>{{ language }}
+            </li>
+            {% endfor %} 
+        </ul>
+    </div>
+{% endblock %}
 
 
 {% block content %}
