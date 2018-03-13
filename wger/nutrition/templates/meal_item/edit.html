@@ -41,6 +41,9 @@ $(document).ready(function() {
             <div id="exercise_name"></div>
         </div>
     </div>
+    <div class="hidden">
+        {% render_form_field form.item_consumed %}
+    </div>
     {% render_form_field form.amount %}
     {% render_form_field form.weight_unit %}
     {% render_form_submit submit_text %}

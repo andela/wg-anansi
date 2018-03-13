@@ -310,8 +310,10 @@ function wgerFormModalDialog() {
   $wgerModalDialog.click(function (e) {
     var $ajaxInfoContent;
     var targetUrl;
+    var consumed_status;
     e.preventDefault();
     targetUrl = $(this).attr('href');
+    consumed_status = $(this).attr('data-consumed');
 
     // It's not possible to have more than one modal open at any time, so close them
     $('.modal').modal('hide');
@@ -362,6 +364,9 @@ function wgerFormModalDialog() {
         // If there isn't assume all was saved correctly and load that result into the
         // page's main DIV (#main-content). All this must be done like this because there
         // doesn't seem to be any reliable and easy way to detect redirects with AJAX.
+        if (consumed_status){
+            $('#id_item_consumed').prop('checked', true);
+        }
         if ($(responseText).find('.form-horizontal').length > 0) {
           modalDialogFormEdit();
         }

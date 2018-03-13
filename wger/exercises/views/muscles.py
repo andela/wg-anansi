@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import (PermissionRequiredMixin,
+                                        LoginRequiredMixin)
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
@@ -23,8 +24,10 @@ from django.utils.translation import ugettext_lazy
 from django.views.generic import (ListView, DeleteView, CreateView, UpdateView)
 
 from wger.exercises.models import Muscle
+from wger.core.models import Language
 from wger.utils.generic_views import (WgerFormMixin, WgerDeleteMixin)
 from wger.utils.language import load_item_languages
+from wger.utils.cache import delete_template_fragment_cache
 from wger.config.models import LanguageConfig
 
 logger = logging.getLogger(__name__)
@@ -35,7 +38,13 @@ class MuscleListView(ListView):
     Overview of all muscles and their exercises
     '''
     model = Muscle
-    queryset = Muscle.objects.all().order_by('-is_front', 'name'),
+
+    # reload the queryset once cache has been cleared
+    def get_queryset(self):
+        if self.template_name == "muscles/overview.html":
+            return Muscle.objects.all().order_by('-is_front', 'name'),
+        return Muscle.objects.all().order_by('-is_front', 'name')
+
     context_object_name = 'muscle_list'
     template_name = 'muscles/overview.html'
 

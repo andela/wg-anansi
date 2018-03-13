@@ -17,11 +17,13 @@
 from django.db.models.signals import pre_save
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from wger.core.models import Language
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.signal_handlers import generate_aliases
 from easy_thumbnails.signals import saved_file
 
-from wger.exercises.models import ExerciseImage
+from wger.exercises.models import ExerciseImage, Muscle
+from wger.utils.cache import delete_template_fragment_cache
 
 
 @receiver(post_delete, sender=ExerciseImage)
@@ -54,6 +56,19 @@ def delete_exercise_image_on_update(sender, instance, **kwargs):
         thumbnailer = get_thumbnailer(instance.image)
         thumbnailer.delete_thumbnails()
         instance.image.delete(save=False)
+
+
+@receiver([post_delete, pre_save], sender=Muscle)
+def reset_muscles_cache(sender, instance, **kwargs):
+    '''
+    Reset all muscle caches after a muscle is deleted or added/updated
+    '''
+    for language in Language.objects.all():
+        delete_template_fragment_cache('muscle-overview', language.id)
+        delete_template_fragment_cache('equipment-overview', language.id)
+        delete_template_fragment_cache('exercise-overview', language.id)
+        delete_template_fragment_cache('exercise-overview-mobile',
+                                       language.id)
 
 
 # Generate thumbnails when uploading a new image
