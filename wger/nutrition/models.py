@@ -34,7 +34,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import translation
 from django.conf import settings
 
-from django.db.models.signals import post_save, post_delete 
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 from wger.core.models import Language
@@ -117,11 +117,12 @@ class NutritionPlan(models.Model):
         '''
         return reverse('nutrition:plan:view', kwargs={'id': self.id})
 
-    def get_nutritional_values(self):
+    def get_nutritional_values(self, consumed_=False):
         '''
         Sums the nutritional info of all items in the plan
+        :param consumed Flag to separate consumed and planned meal items
         '''
-        result = cache.get(cache_mapper.get_nutrition_plan_key(self.id)) 
+        result = cache.get(cache_mapper.get_nutrition_plan_key(self.id))
         if not result:
             use_metric = self.user.userprofile.use_metric
             unit = 'kg' if use_metric else 'lb'
@@ -150,7 +151,7 @@ class NutritionPlan(models.Model):
 
             # Energy
             for meal in self.meal_set.select_related():
-                values = meal.get_nutritional_values(use_metric=use_metric)
+                values = meal.get_nutritional_values(use_metric=use_metric, consumed_=consumed_)
                 for key in result['total'].keys():
                     result['total'][key] += values[key]
 
@@ -589,11 +590,12 @@ class Meal(models.Model):
         '''
         return self.plan
 
-    def get_nutritional_values(self, use_metric=True):
+    def get_nutritional_values(self, consumed_=False, use_metric=True):
         '''
-        Sums the nutrional info of all items in the meal
+        Sums the nutrional info of all items in the meal.
 
         :param use_metric Flag that controls the units used
+        :param consumed Flag that controls whether to receive planned or consumed nutritional info
         '''
         nutritional_info = {
             'energy': 0,
@@ -608,10 +610,11 @@ class Meal(models.Model):
 
         # Get the calculated values from the meal item and add them
         for item in self.mealitem_set.select_related():
+            if item.item_consumed == consumed_:
 
-            values = item.get_nutritional_values(use_metric=use_metric)
-            for key in nutritional_info.keys():
-                nutritional_info[key] += values[key]
+                values = item.get_nutritional_values(use_metric=use_metric)
+                for key in nutritional_info.keys():
+                    nutritional_info[key] += values[key]
 
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
@@ -626,7 +629,7 @@ class MealItem(models.Model):
     '''
     An item (component) of a meal
     '''
-
+    item_consumed = models.BooleanField(default=0, verbose_name=_('Status'))
     meal = models.ForeignKey(
         Meal, verbose_name=_('Nutrition plan'), editable=False)
     ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
