@@ -32,6 +32,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.views.generic import (ListView, DeleteView, CreateView, UpdateView)
 
+from wger.core.models import Language
 from wger.manager.models import WorkoutLog
 from wger.exercises.models import (Exercise, Muscle, ExerciseCategory)
 from wger.utils.generic_views import (WgerFormMixin, WgerDeleteMixin)
@@ -58,9 +59,18 @@ class ExerciseListView(ListView):
         '''
         Filter to only active exercises in the configured languages
         '''
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+        selected_language = self.request.GET.get('filter_lang', None)
+        language = None
+        if selected_language:
+            language_name = Language.objects.filter(short_name=selected_language)
+            if language_name.exists():
+                language = language_name.first().id
+        if language:
+            return Exercise.objects.accepted() \
+                .filter(language=language) \
+                .order_by('category__id') \
+                .select_related()
         return Exercise.objects.accepted() \
-            .filter(language__in=languages) \
             .order_by('category__id') \
             .select_related()
 
@@ -70,6 +80,7 @@ class ExerciseListView(ListView):
         '''
         context = super(ExerciseListView, self).get_context_data(**kwargs)
         context['show_shariff'] = True
+        context['filter_lang'] = self.request.GET.get('filter_lang', None)
         return context
 
 

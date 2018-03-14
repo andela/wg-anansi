@@ -2,13 +2,27 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load wger_extras %}
-{% load cache %}
 {% load thumbnail %}
 
 <!--
         Title
 -->
-{% block title %}{% trans "Exercises" %}{% endblock %}
+{% block title %}
+    {% trans "Exercises" %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
+            {% trans "Select language" %} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href={% url 'exercise:exercise:overview' %}>None</li>
+            {% for short_name, language in languages %}
+            <li>
+                <a href={% url 'exercise:exercise:overview' %}?filter_lang={{ short_name }}>{{ language }}
+            </li>
+            {% endfor %} 
+        </ul>
+    </div>
+{% endblock %}
 
 
 
@@ -46,67 +60,15 @@ $(document).ready(function() {
         Main Content
 -->
 {% block content %}
-
-{% cache cache_timeout exercise-overview language.id %}
-{% regroup exercises by category as exercise_list %}
-<ul class="nav nav-pills" style="margin-bottom:5px">
-    {% for item in exercise_list %}
-    <li {% if forloop.first %}class="active"{% endif %}>
-        <a href="#tab-{{ item.grouper.id }}" id="category-{{ item.grouper.id }}" data-toggle="tab">{% trans item.grouper.name %}</a>
-    </li>
-    {% empty %}
-        <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
-    {% endfor %}
-</ul>
-
-<div class="tab-content">
-    {% for item in exercise_list %}
-    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="tab-{{ item.grouper.id }}">
-        <div class="list-group">
-        {% for exercise in item.list|dictsort:"name" %}
-            <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-                <div class="visible-xs">
-                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                </div>
-                <div class="media">
-                    <div style="width:60px;height:60px;" class="media-left">
-
-                    {% if exercise.main_image %}
-                        <img alt="{{ exercise.name }}"
-                         class="media-object "
-                         style="max-width:100%; max-height:100%;"
-                         src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
-                    {% else %}
-                    <img alt="{% trans 'Placeholder image for exercise' %}"
-                         class="media-object "
-                         style="max-width:100%; max-height:100%; opacity: 0.4;"
-                         src="{% static 'images/icons/image-placeholder.svg' %}">
-                    {% endif %}
-                    </div>
-                    <div class="media-body" style="position: absolute; top: 10px; left: 100px;">
-                        <h4 class="media-heading">{{ exercise.name }}</h4>
-                        <span class="text-muted">
-                            {% for equipment in exercise.equipment.all %}
-                                {% trans equipment.name %}
-                                {% if not forloop.last %},{% endif %}
-                            {% endfor %}
-                        </span>
-                     </div>
-                </div>
-            </a>
-        {% empty %}
-            <a href="#" class="list-group-item">
-                <div class="col-md-offset-1 col-md-10" >
-                    {% trans "No exercises in this category. Add or edit an exercise and set its category" %}
-                </div>
-            </a>
-        {% endfor %}
-        </div>
-    </div>
-    {% endfor %}
-</div>
-{% endcache %}
-
+<!-- If no filter language is provided cache -->
+{% if not filter_lang %}
+    {% load cache %}
+    {% cache cache_timeout exercise-overview language.id %}
+    {% include 'exercise/exercise_list.html' %}
+    {% endcache %}
+{% else %}
+    {% include 'exercise/exercise_list.html' %}    
+{% endif %}
 
 {% endblock %}
 
